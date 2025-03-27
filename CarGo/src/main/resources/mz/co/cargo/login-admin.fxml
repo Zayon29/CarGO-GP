@@ -11,57 +11,52 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1249.0" style="-fx-background-color: #E0E0E0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" style="-fx-background-color: #E0E0E0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label layoutX="33.0" layoutY="14.0" text="CarGo" textFill="#1e3a5f" textOverrun="CLIP">
             <font>
                 <Font name="System Bold Italic" size="40.0" />
             </font>
         </Label>
-        <Line endX="828.0" layoutX="428.0" layoutY="84.0" startX="-428.0" />
-        <Button layoutX="1134.0" layoutY="24.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="84.0" text="Sair">
+        <Line endX="972.0" layoutX="428.0" layoutY="84.0" startX="-428.0" />
+        <Button layoutX="1286.0" layoutY="24.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="84.0" text="Sair">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Label layoutX="843.0" layoutY="28.0" text="Usuário">
+        <Label layoutX="1135.0" layoutY="29.0" text="Administrador">
             <font>
                 <Font size="20.0" />
             </font>
         </Label>
-        <Button disable="true" layoutX="935.0" layoutY="24.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="181.0" text="Minhas Reservas">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </Button>
-        <AnchorPane focusTraversable="true" layoutX="386.0" layoutY="171.0" prefHeight="552.0" prefWidth="477.0" style="-fx-border-radius: 30px; -fx-border-color: black;" styleClass="i">
+        <AnchorPane focusTraversable="true" layoutX="442.0" layoutY="203.0" prefHeight="550.0" prefWidth="517.0" style="-fx-border-radius: 30px; -fx-border-color: black;" styleClass="i">
             <children>
-                <Label layoutX="174.0" layoutY="45.0" text="Login" textFill="#1e3a5f">
+                <Label layoutX="189.0" layoutY="43.0" text="Login" textFill="#1e3a5f">
                     <font>
                         <Font name="System Bold Italic" size="50.0" />
                     </font>
                 </Label>
-                <TextField layoutX="117.0" layoutY="205.0">
+                <TextField layoutX="65.0" layoutY="206.0" prefHeight="40.0" prefWidth="388.0">
                     <font>
                         <Font size="19.0" />
                     </font>
                 </TextField>
-                <TextField layoutX="117.0" layoutY="288.0">
+                <TextField layoutX="66.0" layoutY="294.0" prefHeight="40.0" prefWidth="388.0">
                     <font>
                         <Font size="19.0" />
                     </font>
                 </TextField>
-                <Label layoutX="117.0" layoutY="162.0" prefHeight="32.0" prefWidth="57.0" text="Email" textFill="#1e3a5f">
+                <Label layoutX="66.0" layoutY="157.0" prefHeight="32.0" prefWidth="57.0" text="Email" textFill="#1e3a5f">
                     <font>
                         <Font size="18.0" />
                     </font>
                 </Label>
-                <Button layoutX="117.0" layoutY="368.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="235.0" text="Entrar">
+                <Button layoutX="66.0" layoutY="376.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="188.0" text="Entrar">
                     <font>
                         <Font size="18.0" />
                     </font>
                 </Button>
-                <Label layoutX="117.0" layoutY="254.0" text="Senha" textFill="#1e3a5f">
+                <Label layoutX="65.0" layoutY="255.0" text="Senha" textFill="#1e3a5f">
                     <font>
                         <Font size="18.0" />
                     </font>
@@ -76,7 +71,7 @@
                         <Image url="@../../../../../../../../Downloads/padlock-unlock.png" />
                     </image>
                 </ImageView>
-                <Button layoutX="117.0" layoutY="432.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="235.0" style="-fx-background-color: #1e3a5f;" text="Criar Conta" textFill="#e0e0e0">
+                <Button layoutX="273.0" layoutY="376.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="181.0" style="-fx-background-color: #1e3a5f;" text="Criar Conta" textFill="#e0e0e0">
                     <font>
                         <Font size="18.0" />
                     </font>
