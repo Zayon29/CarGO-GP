@@ -11,14 +11,14 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("tela-admin.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("telaUser.fxml"));
         Parent root = fxmlLoader.load();
 
-        Scene scene = new Scene(root); // Sem tamanho fixo
+        Scene scene = new Scene(root);
 
         stage.setTitle("Sistema de Locação de Veículos - CarGo");
         stage.setScene(scene);
-        stage.setResizable(true); // Permite redimensionamento, mas não inicia maximizado
+        stage.setResizable(true);
 
         stage.show();
     }
