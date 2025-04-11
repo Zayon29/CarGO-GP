@@ -85,7 +85,9 @@ public class VeiculoService {
         return "Status atualizado para: " + novoStatus;
     }
 
-    // Listar veículos nao feito
+    public static List<Veiculo> buscarTodosVeiculos() {
+        return VeiculoRepository.buscarTodosVeiculos();
+    }
 
 
 }

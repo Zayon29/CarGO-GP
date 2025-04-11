@@ -3,7 +3,6 @@ package mz.co.cargo.Model;
 import java.util.List;
 
 public class Veiculo {
-    private int id;
     private String marca;
     private String modelo;
     private int anoFabricacao;
@@ -15,9 +14,8 @@ public class Veiculo {
     private String tipoCombustivel;
     private List<String> imagens; // Lista com caminhos das imagens
 
-    public Veiculo(int id, String marca, String modelo, int anoFabricacao, String placa, String chassi,
+    public Veiculo(String marca, String modelo, int anoFabricacao, String placa, String chassi,
                    double precoAluguel, String status, int quilometragem, String tipoCombustivel, List<String> imagens) {
-        this.id = id;
         this.marca = marca;
         this.modelo = modelo;
         this.anoFabricacao = anoFabricacao;

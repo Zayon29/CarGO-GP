@@ -1,11 +1,24 @@
 package mz.co.cargo.Repository;
-import mz.co.cargo.Repository.DatabaseConnection;
+
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.Statement;
 
-public class VeiculoDatabaseInitializer {
-    public static void initialize() {
-        try (Connection conn = DatabaseConnection.connect();
+public class VeiculoDatabase {
+
+        private static final String URL = "jdbc:sqlite:veiculo.db";
+
+        public static Connection connect() {
+            try {
+                return DriverManager.getConnection(URL);
+            } catch (Exception e) {
+                System.out.println("Erro conexão cliente: " + e.getMessage());
+                return null;
+            }
+        }
+
+    public static void inicializar() {
+        try (Connection conn = connect();
              Statement stmt = conn.createStatement()) {
 
             String sql = "CREATE TABLE IF NOT EXISTS veiculo (" +
@@ -28,4 +41,6 @@ public class VeiculoDatabaseInitializer {
             System.out.println("Erro ao criar tabela de veículos: " + e.getMessage());
         }
     }
-}
+    }
+
+

@@ -3,6 +3,10 @@ import mz.co.cargo.Model.Veiculo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class VeiculoRepository {
 
@@ -10,7 +14,7 @@ public class VeiculoRepository {
         String sql = "INSERT INTO veiculo (marca, modelo, ano, placa, chassi, preco, status, quilometragem, combustivel, imagens) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
-        try (Connection conn = DatabaseConnection.connect();
+        try (Connection conn = VeiculoDatabase.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, veiculo.getMarca());
@@ -37,7 +41,7 @@ public class VeiculoRepository {
     public static void removerVeiculo(String placa) {
         String sql = "DELETE FROM veiculo WHERE placa = ?;";
 
-        try (Connection conn = DatabaseConnection.connect();
+        try (Connection conn = VeiculoDatabase.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, placa);
@@ -59,7 +63,7 @@ public class VeiculoRepository {
         String sql = "UPDATE veiculo SET marca = ?, modelo = ?, ano = ?, preco = ?, status = ?, quilometragem = ?, combustivel = ?, imagens = ? " +
                 "WHERE placa = ?;";
 
-        try (Connection conn = DatabaseConnection.connect();
+        try (Connection conn = VeiculoDatabase.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, veiculo.getMarca());
@@ -88,7 +92,7 @@ public class VeiculoRepository {
     public static boolean existePlaca(String placa) {
         String sql = "SELECT COUNT(*) FROM veiculo WHERE placa = ?;";
 
-        try (Connection conn = DatabaseConnection.connect();
+        try (Connection conn = VeiculoDatabase.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, placa);
@@ -106,7 +110,7 @@ public class VeiculoRepository {
     public static boolean existeChassi(String chassi) {
         String sql = "SELECT COUNT(*) FROM veiculo WHERE chassi = ?;";
 
-        try (Connection conn = DatabaseConnection.connect();
+        try (Connection conn = VeiculoDatabase.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, chassi);
@@ -125,7 +129,7 @@ public class VeiculoRepository {
     public static void alterarStatusVeiculo(String placa, String novoStatus) {
         String sql = "UPDATE veiculo SET status = ? WHERE placa = ?;";
 
-        try (Connection conn = DatabaseConnection.connect();
+        try (Connection conn = VeiculoDatabase.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, novoStatus);
@@ -146,7 +150,7 @@ public class VeiculoRepository {
     public static String buscarStatusPorPlaca(String placa) {
         String sql = "SELECT status FROM veiculo WHERE placa = ?;";
 
-        try (Connection conn = DatabaseConnection.connect();
+        try (Connection conn = VeiculoDatabase.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, placa);
@@ -161,6 +165,45 @@ public class VeiculoRepository {
         }
         return "DESCONHECIDO"; // Caso não encontre o veículo
     }
+
+    private static Veiculo mapearVeiculo(ResultSet rs) throws SQLException {
+        String marca = rs.getString("marca");
+        String modelo = rs.getString("modelo");
+        int ano = rs.getInt("ano");
+        String placa = rs.getString("placa");
+        String chassi = rs.getString("chassi");
+        double preco = rs.getDouble("preco");
+        String status = rs.getString("status");
+        int quilometragem = rs.getInt("quilometragem");
+        String combustivel = rs.getString("combustivel");
+
+        // Supondo que o campo "imagens" seja armazenado como string separada por ponto e vírgula
+        String imagensStr = rs.getString("imagens");
+        List<String> imagens = new ArrayList<>();
+        if (imagensStr != null && !imagensStr.isEmpty()) {
+            imagens = new ArrayList<>(Arrays.asList(imagensStr.split(";")));
+        }
+
+        Veiculo veiculo = new Veiculo(marca, modelo, ano, placa, chassi, preco, status, quilometragem, combustivel, imagens);
+        return veiculo;
+    }
+
+
+    public static List<Veiculo> buscarTodosVeiculos() {
+        List<Veiculo> lista = new ArrayList<>();
+        try (Connection conn = VeiculoDatabase.connect();
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM veiculo");
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                lista.add(mapearVeiculo(rs));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
 
 
 
