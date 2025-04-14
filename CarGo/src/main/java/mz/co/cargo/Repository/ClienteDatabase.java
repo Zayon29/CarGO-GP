@@ -20,8 +20,8 @@ public class ClienteDatabase {
             String sql = "CREATE TABLE IF NOT EXISTS cliente (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "nome TEXT NOT NULL," +
-                    "telefone TEXT," +
-                    "email TEXT UNIQUE NOT NULL);";
+                    "email TEXT UNIQUE NOT NULL," +
+                    "senha TEXT NOT NULL);";
             stmt.execute(sql);
             System.out.println("Tabela 'cliente' pronta!");
         } catch (Exception e) {

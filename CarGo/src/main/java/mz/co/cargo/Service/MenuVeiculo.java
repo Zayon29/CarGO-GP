@@ -106,7 +106,7 @@ public class MenuVeiculo {
         return new Veiculo(marca, modelo, ano, placa, chassi, preco, status, km, combustivel, imagens);
     }
 
-    private static void listarVeiculos() {
+    public static void listarVeiculos() {
         List<Veiculo> lista = VeiculoService.buscarTodosVeiculos();
 
         if (lista.isEmpty()) {
