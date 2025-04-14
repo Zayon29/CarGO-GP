@@ -18,9 +18,9 @@ public class MenuCliente {
         DatabaseInitializer.initializeAll();
 
         // Cliente de teste
-        ClienteUser cliente1 = new ClienteUser("teste", "teste@email.com", "123456");
-        String resultado = ClienteService.cadastrarCliente(cliente1);
-        System.out.println(resultado);
+        //ClienteUser cliente1 = new ClienteUser("teste", "teste@email.com", "123456");
+        //String resultado = ClienteService.cadastrarCliente(cliente1);
+        //System.out.println(resultado);
 
         listarClientes();
 
