@@ -2,6 +2,7 @@ package mz.co.cargo.Service;
 
 import mz.co.cargo.Model.AdminUser;
 import mz.co.cargo.Model.ClienteUser;
+import mz.co.cargo.Model.Veiculo;
 import mz.co.cargo.Repository.DatabaseInitializer;
 
 import java.util.List;
@@ -73,7 +74,7 @@ public class MenuCliente {
 
             switch (opcao) {
                 case 1 -> exibirInfos(cliente);
-                case 2 -> listarVeiculos();
+                case 2 -> menuBuscarVeiculos(); //antes era só listar veiculos,essa esta a busca filtrada
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida.");
             }
@@ -137,5 +138,49 @@ public class MenuCliente {
         System.out.println("Email: " + cliente.getNome());
         System.out.println("Nome: " + cliente.getEmail());
     }
+
+    public static void menuBuscarVeiculos() {
+        System.out.println("\n=== BUSCA DE VEÍCULOS ===");
+
+        System.out.print("Marca (pressione Enter para ignorar): ");
+        String marca = scanner.nextLine();
+
+        System.out.print("Modelo (pressione Enter para ignorar): ");
+        String modelo = scanner.nextLine();
+
+        System.out.print("Preço mínimo (ou Enter para 0): ");
+        String precoMinStr = scanner.nextLine();
+        double precoMin = precoMinStr.isEmpty() ? 0.0 : Double.parseDouble(precoMinStr);
+
+        System.out.print("Preço máximo (ou Enter para ilimitado): ");
+        String precoMaxStr = scanner.nextLine();
+        double precoMax = precoMaxStr.isEmpty() ? Double.MAX_VALUE : Double.parseDouble(precoMaxStr);
+
+        System.out.print("Status (DISPONIVEL): ");
+        String status = scanner.nextLine().isEmpty() ? "DISPONIVEL" : scanner.nextLine();
+
+        System.out.print("Ordenar por (1 = menor preço, 2 = maior preço): ");
+        String ordem = switch (scanner.nextLine()) {
+            case "2" -> "MAIOR_PRECO";
+            default -> "MENOR_PRECO";
+        };
+
+        List<Veiculo> resultados = VeiculoService.buscarComFiltros(
+                marca, modelo, precoMin, precoMax, status.toUpperCase(), ordem
+        );
+
+        System.out.println("\n=== RESULTADOS DA BUSCA ===");
+
+        if (resultados.isEmpty()) {
+            System.out.println("Nenhum veículo encontrado com os filtros informados.");
+        } else {
+            for (Veiculo v : resultados) {
+                System.out.printf("• %s %s (%d) | R$ %.2f | %s\n",
+                        v.getMarca(), v.getModelo(), v.getAnoFabricacao(),
+                        v.getPrecoAluguel(), v.getStatus());
+            }
+        }
+    }
+
 
 }

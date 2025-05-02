@@ -3,13 +3,14 @@ import mz.co.cargo.Model.Veiculo;
 import mz.co.cargo.Repository.VeiculoRepository;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class VeiculoService {
 
-    // Cadastrar veículo com regras de negócio
+
     public static String cadastrarVeiculo(Veiculo veiculo) {
 
-        //esses codigos aqui estao mais como para ficar ja prontos,ja que a gente nao tem ainda o mdnu para interarir em si
+
         // Validação dos critérios de aceitação
         if (!Pattern.matches("[a-zA-Z0-9 ]+", veiculo.getMarca()) ||
                 !Pattern.matches("[a-zA-Z0-9 ]+", veiculo.getModelo())) {
@@ -28,7 +29,7 @@ public class VeiculoService {
             return "Erro: Apenas 5 imagens são permitidas.";
         }
 
-        // Verificar se a placa e o chassi já existem no banco
+
         if (VeiculoRepository.existePlaca(veiculo.getPlaca())) {
             return "Erro: Placa já cadastrada.";
         }
@@ -37,12 +38,12 @@ public class VeiculoService {
             return "Erro: Chassi já cadastrado.";
         }
 
-        // caadastrar veículo no banco
+
         VeiculoRepository.adicionarVeiculo(veiculo);
         return "Veículo cadastrado com sucesso!";
     }
 
-    // Remove veículo
+
     public static String removerVeiculo(String placa) {
         if (!VeiculoRepository.existePlaca(placa)) {
             return "Erro: Nenhum veículo encontrado com essa placa.";
@@ -68,7 +69,7 @@ public class VeiculoService {
             return "Erro: Veículo não encontrado.";
         }
 
-        //o status informado é válido
+
         List<String> statusPermitidos = List.of("DISPONIVEL", "ALUGADO", "EM_MANUTENCAO");
         if (!statusPermitidos.contains(novoStatus.toUpperCase())) {
             return "Erro: Status inválido. Escolha entre Disponível, Alugado ou Em Manutenção.";
@@ -89,5 +90,25 @@ public class VeiculoService {
         return VeiculoRepository.buscarTodosVeiculos();
     }
 
+    public static List<Veiculo> buscarComFiltros(String marca, String modelo, double precoMin, double precoMax, String status, String ordem) {
+        return VeiculoRepository. buscarTodosVeiculos()
+                .stream()
+                .filter(v -> v.getStatus().equalsIgnoreCase(status))
+                .filter(v -> marca == null || marca.isEmpty() || v.getMarca().equalsIgnoreCase(marca))
+                .filter(v -> modelo == null || modelo.isEmpty() || v.getModelo().equalsIgnoreCase(modelo))
+                .filter(v -> v.getPrecoAluguel() >= precoMin && v.getPrecoAluguel() <= precoMax)
+                .sorted((v1, v2) -> {
+                    if ("MENOR_PRECO".equalsIgnoreCase(ordem)) return Double.compare(v1.getPrecoAluguel(), v2.getPrecoAluguel());
+                    if ("MAIOR_PRECO".equalsIgnoreCase(ordem)) return Double.compare(v2.getPrecoAluguel(), v1.getPrecoAluguel());
+                    return 0;
+                })
+                .collect(Collectors.toList());
 
+
+
+
+
+    }
 }
+
+
