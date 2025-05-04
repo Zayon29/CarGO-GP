@@ -18,15 +18,15 @@ public class AdminController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/mz/co/cargo/cadastroVeiculo.fxml"));
             Parent cadastroRoot = loader.load();
 
-            // Obtém a janela atual (Stage) a partir do botão
+            // Recupera a janela atual
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            // Cria e seta a nova cena
-            Scene scene = new Scene(cadastroRoot);
-            stage.setScene(scene);
+            // Troca a cena
+            stage.setScene(new Scene(cadastroRoot));
             stage.setTitle("Cadastrar Veículo - CarGo");
         } catch (IOException e) {
             e.printStackTrace();
+            // Aqui você pode mostrar um alerta de erro, se quiser
         }
     }
 
@@ -46,4 +46,5 @@ public class AdminController {
             e.printStackTrace();
         }
     }
+
 }
