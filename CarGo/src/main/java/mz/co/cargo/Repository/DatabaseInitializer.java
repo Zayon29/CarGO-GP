@@ -6,6 +6,7 @@ public class DatabaseInitializer {
             VeiculoDatabase.inicializar();
             ClienteDatabase.inicializar();
             AdminDatabase.inicializar();
+            ManutencaoDatabase.inicializar();
         }
     }
 
