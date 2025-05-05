@@ -57,6 +57,8 @@ public class MenuAdmin {
             System.out.println("3. Registrar manutenção em veículo");
             System.out.println("4. Ver histórico de manutenção por placa");
             System.out.println("5. Alterar status de um veículo para 'DISPONIVEL'");
+            System.out.println("6. Listar Veiculos");
+            System.out.println("7. Listar Clientes");
 
             System.out.print("Escolha uma opção: ");
 
@@ -82,11 +84,8 @@ public class MenuAdmin {
                     String placa = scanner.nextLine();
                     alterarStatusParaDisponivel(placa);
                 }
-
-
-
-
-
+                case 6 -> MenuVeiculo.listarVeiculos();
+                case 7 -> MenuCliente.listarClientes();
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida.");
             }

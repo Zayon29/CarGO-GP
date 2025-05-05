@@ -8,13 +8,26 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import mz.co.cargo.Model.AdminUser;
+import javafx.scene.control.Label;
 
 public class AdminController {
 
     @FXML
+    private Label saudacaoLabel;
+
+    @FXML
+    private Label emailLabel;
+
+    public void carregarInformacoes(AdminUser admin, ActionEvent event) {
+        saudacaoLabel.setText("Olá, Adm " + admin.getNome() + "!");
+        emailLabel.setText("Email: " + admin.getEmail());
+    }
+
+    @FXML
     private void abrirCadastroVeiculo(ActionEvent event) {
         try {
-            // Carrega o FXML de cadastro de veículos
+            // Carregar o FXML de cadastro de veículos
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/mz/co/cargo/cadastroVeiculo.fxml"));
             Parent cadastroRoot = loader.load();
 
@@ -26,7 +39,7 @@ public class AdminController {
             stage.setTitle("Cadastrar Veículo - CarGo");
         } catch (IOException e) {
             e.printStackTrace();
-            // Aqui você pode mostrar um alerta de erro, se quiser
+            // Alerta de erro, se necessário
         }
     }
 
@@ -41,10 +54,9 @@ public class AdminController {
 
             stage.setScene(loginScene);
             stage.setTitle("Login - CarGo");
-
         } catch (IOException e) {
             e.printStackTrace();
+            // Alerta de erro, se necessário
         }
     }
-
 }
