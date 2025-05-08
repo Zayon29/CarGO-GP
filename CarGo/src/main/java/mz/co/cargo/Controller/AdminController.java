@@ -43,6 +43,8 @@ public class AdminController {
         }
     }
 
+
+
     @FXML
     private void voltarParaLogin(ActionEvent event) {
         try {

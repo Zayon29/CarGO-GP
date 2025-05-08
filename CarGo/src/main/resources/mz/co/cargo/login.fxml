@@ -77,7 +77,7 @@
             <Button fx:id="botaoEntrar" mnemonicParsing="false" prefHeight="57.0" prefWidth="188.0" text="Entrar" onAction="#fazerLogin">
                <font><Font size="18.0" /></font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="188.0" style="-fx-background-color: #1e3a5f;" text="Criar Conta" textFill="#e0e0e0" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+            <Button mnemonicParsing="false" onAction="#abrirTelaCadastro" prefHeight="40.0" prefWidth="188.0" style="-fx-background-color: #1e3a5f;" text="Criar Conta"  textFill="#e0e0e0" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                <font>
                   <Font size="18.0" />
                </font>

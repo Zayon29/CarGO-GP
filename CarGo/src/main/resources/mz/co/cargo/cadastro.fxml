@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane hgap="5.0" prefHeight="889.0" prefWidth="606.0" style="-fx-background-color: #E0E0E0;" vgap="5.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane hgap="5.0" prefHeight="643.0" prefWidth="612.0" style="-fx-background-color: #E0E0E0;" vgap="5.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mz.co.cargo.Controller.CadastroUserController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="191.0" minWidth="10.0" prefWidth="108.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="394.0" minWidth="10.0" prefWidth="389.0" />
@@ -26,10 +26,6 @@
       <RowConstraints maxHeight="86.0" minHeight="0.0" prefHeight="56.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="95.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="86.0" minHeight="0.0" prefHeight="56.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="95.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="95.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="67.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
    </rowConstraints>
@@ -65,31 +61,24 @@
       </Label>
       <HBox prefHeight="42.0" prefWidth="109.0" spacing="5.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
       <TextField fx:id="emailField" prefHeight="47.0" prefWidth="390.0" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="TOP" />
-      <Label prefHeight="17.0" prefWidth="370.0" text="Idade" textFill="#1e3a5f" GridPane.columnIndex="1" GridPane.rowIndex="6">
+      <Label prefHeight="17.0" prefWidth="370.0" text="Senha" textFill="#1e3a5f" GridPane.columnIndex="1" GridPane.rowIndex="6">
          <font>
             <Font size="26.0" />
          </font>
       </Label>
-      <TextField fx:id="idadeField" prefHeight="47.0" prefWidth="390.0" GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.valignment="TOP" />
-      <Label prefHeight="17.0" prefWidth="370.0" text="CPF" textFill="#1e3a5f" GridPane.columnIndex="1" GridPane.rowIndex="8">
+      <TextField fx:id="senhaField" prefHeight="47.0" prefWidth="390.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <Label prefHeight="17.0" prefWidth="370.0" text="Confirmar Senha" textFill="#1e3a5f" GridPane.columnIndex="1" GridPane.rowIndex="8">
          <font>
             <Font size="26.0" />
          </font>
       </Label>
-      <TextField fx:id="cpfField" prefHeight="47.0" prefWidth="390.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-      <Label prefHeight="17.0" prefWidth="370.0" text="Senha" textFill="#1e3a5f" GridPane.columnIndex="1" GridPane.rowIndex="10">
+      <TextField fx:id="confirmarSenhaField" prefHeight="47.0" prefWidth="390.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+      <Button fx:id="criarContaButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="188.0" style="-fx-background-color: #1e3a5f;" text="Criar Conta" textFill="#e0e0e0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="BOTTOM">
          <font>
-            <Font size="26.0" />
+            <Font size="18.0" />
          </font>
-      </Label>
-      <TextField fx:id="senhaField" prefHeight="47.0" prefWidth="390.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-      <Label prefHeight="17.0" prefWidth="370.0" text="Confirmar Senha" textFill="#1e3a5f" GridPane.columnIndex="1" GridPane.rowIndex="12">
-         <font>
-            <Font size="26.0" />
-         </font>
-      </Label>
-      <TextField fx:id="confirmarSenhaField" prefHeight="47.0" prefWidth="390.0" GridPane.columnIndex="1" GridPane.rowIndex="13" />
-      <Button  fx:id="criarContaButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="188.0" style="-fx-background-color: #1e3a5f;" text="Criar Conta" textFill="#e0e0e0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="14" GridPane.valignment="BOTTOM">
+      </Button>
+      <Button fx:id="botaoSair" mnemonicParsing="false" onAction="#voltarParaLogin" prefHeight="29.0" prefWidth="84.0" text="Voltar" GridPane.columnIndex="2">
          <font>
             <Font size="18.0" />
          </font>

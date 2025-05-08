@@ -81,4 +81,22 @@ public class LoginController {
             return false;
         }
     }
+
+    @FXML
+    private void abrirTelaCadastro(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("cadastro.fxml")); // coloque aqui o caminho correto do seu FXML
+            Parent cadastroPage = loader.load();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(cadastroPage));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.showAndWait();
+        }
+    }
+
+
 }
