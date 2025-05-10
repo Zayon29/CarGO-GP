@@ -1,5 +1,6 @@
 package mz.co.cargo.Controller;
 
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,8 +9,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import mz.co.cargo.Model.ClienteUser;
 import mz.co.cargo.Service.ClienteService;
 
@@ -52,7 +55,7 @@ public class CadastroUserController {
         String resultado = ClienteService.cadastrarCliente(cliente);
 
         if (resultado.equals("Usuário cadastrado com sucesso!")) {
-            mostrarAlerta("Sucesso", resultado);// chama a nova tela
+            mostrarAlerta("Sucesso", resultado);
         } else {
             mostrarAlerta("Erro", resultado);
         }
@@ -64,7 +67,18 @@ public class CadastroUserController {
         alert.setTitle(titulo);
         alert.setHeaderText(null);
         alert.setContentText(mensagem);
-        alert.showAndWait();
+
+        alert.getButtonTypes().setAll(ButtonType.OK);
+
+        Button okButton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+        okButton.setVisible(false);
+        okButton.setManaged(false);
+
+        alert.show();
+
+        PauseTransition delay = new PauseTransition(Duration.seconds(4));
+        delay.setOnFinished(e -> alert.close());
+        delay.play();
     }
     @FXML
     private void voltarParaLogin(ActionEvent event) {

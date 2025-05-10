@@ -73,6 +73,39 @@ public class ClienteRepository {
         return lista;
     }
 
+    public static List<ClienteUser> buscarClientesPorNome(String nome) {
+        List<ClienteUser> lista = new ArrayList<>();
+        String sql = "SELECT * FROM cliente WHERE nome LIKE ?";
+        try (Connection conn = ClienteDatabase.connect();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, "%" + nome + "%");
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    lista.add(mapearCliente(rs));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+    public static boolean excluirCliente(int id) {
+        String sql = "DELETE FROM cliente WHERE id = ?";
+        try (Connection conn = ClienteDatabase.connect();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            int affected = stmt.executeUpdate();
+            return affected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
     public static ClienteUser loginCliente(String email, String senha) {
         ClienteUser cliente = null;
         String query = "SELECT * FROM cliente WHERE email = ? AND senha = ?";

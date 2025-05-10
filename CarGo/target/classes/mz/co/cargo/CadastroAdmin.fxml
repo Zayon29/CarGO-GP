@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="mz.co.cargo.Controller.CadastroAdminController"
+            style="-fx-background-color: #E0E0E0;"
+            prefWidth="600.0" prefHeight="700.0">
+
+    <!-- Coloca tudo no centro do BorderPane -->
+    <center>
+        <GridPane hgap="10" vgap="10" alignment="CENTER">
+            <!-- Colunas proporcionais -->
+            <columnConstraints>
+                <ColumnConstraints percentWidth="25" hgrow="ALWAYS" />
+                <ColumnConstraints percentWidth="50" hgrow="ALWAYS" />
+                <ColumnConstraints percentWidth="25" hgrow="ALWAYS" />
+            </columnConstraints>
+            <!-- Linhas que crescem também -->
+            <rowConstraints>
+                <RowConstraints percentHeight="10" vgrow="ALWAYS"/>
+                <RowConstraints percentHeight="10" vgrow="ALWAYS"/>
+                <RowConstraints percentHeight="10" vgrow="ALWAYS"/>
+                <RowConstraints percentHeight="10" vgrow="ALWAYS"/>
+                <RowConstraints percentHeight="10" vgrow="ALWAYS"/>
+                <RowConstraints percentHeight="10" vgrow="ALWAYS"/>
+                <RowConstraints percentHeight="10" vgrow="ALWAYS"/>
+                <RowConstraints percentHeight="10" vgrow="ALWAYS"/>
+                <RowConstraints percentHeight="10" vgrow="ALWAYS"/>
+                <RowConstraints percentHeight="10" vgrow="ALWAYS"/>
+                <RowConstraints percentHeight="10" vgrow="ALWAYS"/>
+                <RowConstraints percentHeight="10" vgrow="ALWAYS"/>
+            </rowConstraints>
+
+            <!-- Título -->
+            <Label text="CarGo" textFill="#1e3a5f"
+                   GridPane.columnIndex="1" GridPane.rowIndex="0"
+                   alignment="CENTER">
+                <font><Font name="System Bold Italic" size="34.0"/></font>
+            </Label>
+            <Label text="Cadastro Admin" textFill="#1e3a5f"
+                   GridPane.columnIndex="1" GridPane.rowIndex="1"
+                   alignment="CENTER">
+                <font><Font name="System Bold Italic" size="36.0"/></font>
+            </Label>
+
+            <!-- Nome de usuário -->
+            <Label text="Nome de usuário" textFill="#1e3a5f"
+                   GridPane.columnIndex="1" GridPane.rowIndex="2"
+                   alignment="CENTER_LEFT">
+                <font><Font size="26.0"/></font>
+            </Label>
+            <TextField fx:id="nomeField"
+                       GridPane.columnIndex="1" GridPane.rowIndex="3"
+                       maxWidth="1.7976931348623157E308" />
+
+            <!-- Email -->
+            <Label text="Email" textFill="#1e3a5f"
+                   GridPane.columnIndex="1" GridPane.rowIndex="4"
+                   alignment="CENTER_LEFT">
+                <font><Font size="26.0"/></font>
+            </Label>
+            <TextField fx:id="emailField"
+                       GridPane.columnIndex="1" GridPane.rowIndex="5"
+                       maxWidth="1.7976931348623157E308" />
+
+            <!-- Senha -->
+            <Label text="Senha" textFill="#1e3a5f"
+                   GridPane.columnIndex="1" GridPane.rowIndex="6"
+                   alignment="CENTER_LEFT">
+                <font><Font size="26.0"/></font>
+            </Label>
+            <PasswordField fx:id="senhaField"
+                           GridPane.columnIndex="1" GridPane.rowIndex="7"
+                           maxWidth="1.7976931348623157E308" />
+
+            <!-- Confirmar Senha -->
+            <Label text="Confirmar Senha" textFill="#1e3a5f"
+                   GridPane.columnIndex="1" GridPane.rowIndex="8"
+                   alignment="CENTER_LEFT">
+                <font><Font size="26.0"/></font>
+            </Label>
+            <PasswordField fx:id="confirmarSenhaField"
+                           GridPane.columnIndex="1" GridPane.rowIndex="9"
+                           maxWidth="1.7976931348623157E308" />
+
+            <!-- Botões -->
+            <HBox spacing="20" GridPane.columnIndex="1" GridPane.rowIndex="10" alignment="CENTER">
+                <Button fx:id="criarContaButton" text="Criar Conta"
+                        onAction="#salvarAdmin"
+                        style="-fx-background-color: #1e3a5f;" textFill="#e0e0e0">
+                    <font><Font size="18"/></font>
+                </Button>
+                <Button fx:id="botaoSair" text="Voltar"
+                        onAction="#voltarParaLogin">
+                    <font><Font size="18"/></font>
+                </Button>
+            </HBox>
+        </GridPane>
+    </center>
+</BorderPane>

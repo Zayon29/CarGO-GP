@@ -32,7 +32,6 @@ public class LoginController {
         AdminUser admin = AdminService.realizarLoginAdmin(email, senha);
 
         if (admin != null) {
-            loginSucesso(true);
             carregarPaginaAdm(admin, event);
         } else {
             loginSucesso(false);
@@ -97,6 +96,8 @@ public class LoginController {
             alert.showAndWait();
         }
     }
+
+
 
 
 }

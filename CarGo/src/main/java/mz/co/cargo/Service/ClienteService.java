@@ -48,4 +48,12 @@ public class ClienteService {
         return ClienteRepository.buscarTodosClientes();
     }
 
+    public static List<ClienteUser> buscarClientesPorNome(String nome){
+        return ClienteRepository.buscarClientesPorNome(nome);
+    }
+
+    public static boolean excluirCliente(int id){
+        return ClienteRepository.excluirCliente(id);
+    }
+
 }

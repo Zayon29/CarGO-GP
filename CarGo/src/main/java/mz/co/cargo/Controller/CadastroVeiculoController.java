@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import mz.co.cargo.Model.AdminUser;
 
 public class CadastroVeiculoController {
 
@@ -104,11 +105,20 @@ public class CadastroVeiculoController {
         caminhoTextField.clear();
     }
 
+    private AdminUser adminLogado;
+
+    public void setAdminLogado(AdminUser admin) {
+        this.adminLogado = admin;
+    }
+
     @FXML
     private void voltarParaTelaAdmin(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/mz/co/cargo/telaAdmin.fxml"));
             Parent adminRoot = loader.load();
+
+            AdminController controller = loader.getController();
+            controller.carregarInformacoes(adminLogado, event);
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene adminScene = new Scene(adminRoot);

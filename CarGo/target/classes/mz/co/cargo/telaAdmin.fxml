@@ -35,7 +35,11 @@
         <RowConstraints prefHeight="155" vgrow="SOMETIMES"/>
         <!-- 5: cadastrar veículos -->
         <RowConstraints prefHeight="60" vgrow="SOMETIMES"/>
-        <!-- 6: conteúdo interno -->
+
+        <RowConstraints prefHeight="70" vgrow="SOMETIMES"/>
+
+        <RowConstraints prefHeight="80" vgrow="SOMETIMES"/>
+
         <RowConstraints prefHeight="538" vgrow="SOMETIMES"/>
     </rowConstraints>
 
@@ -112,13 +116,32 @@
                 onAction="#abrirCadastroVeiculo"
                 style="-fx-background-color: #1e3a5f;"
                 textFill="#e0e0e0"
+                GridPane.columnIndex="1" GridPane.rowIndex="7"
+                GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <font><Font size="18"/></font>
+        </Button>
+
+        <Button fx:id="cadastrarAdminButton"
+                text="Cadastrar Admin"
+                onAction="#abrirCadastroAdmin"
+                style="-fx-background-color: #1e3a5f;"
+                textFill="#e0e0e0"
+                GridPane.columnIndex="1" GridPane.rowIndex="6"
+                GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <font><Font size="18"/></font>
+        </Button>
+
+        <Button fx:id="gerenciarClientes"
+                text="Gerenciar Clientes"
+                onAction="#abrirGerenciarClientes"
+                style="-fx-background-color: #1e3a5f;"
+                textFill="#e0e0e0"
                 GridPane.columnIndex="1" GridPane.rowIndex="5"
                 GridPane.halignment="CENTER" GridPane.valignment="CENTER">
             <font><Font size="18"/></font>
         </Button>
 
-        <!-- Linha 6: conteúdo interno / Grid de veículos -->
-        <GridPane GridPane.columnIndex="1" GridPane.rowIndex="6"
+        <GridPane GridPane.columnIndex="1" GridPane.rowIndex="8"
                   hgap="10" vgap="10"
                   prefWidth="923" prefHeight="447"
                   style="-fx-background-color: #E0E0E0;">
