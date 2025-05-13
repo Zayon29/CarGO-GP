@@ -7,20 +7,25 @@
 <VBox xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="mz.co.cargo.Controller.GerenciarClientesController"
-      spacing="10" padding="10"
+      spacing="10"
       style="-fx-background-color: #f4f4f4;"
       prefWidth="600" prefHeight="500">
 
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
     <!-- Barra de busca -->
     <HBox spacing="10" alignment="CENTER_LEFT">
-        <TextField fx:id="searchField" promptText="Buscar por nome..."
-                   style="-fx-pref-width: 300;"/>
+        <TextField fx:id="searchField"
+                   promptText="Buscar por nome..."
+                   prefWidth="300"/>
         <Button text="Buscar" onAction="#onSearch"
                 style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
     </HBox>
 
     <!-- Tabela de clientes -->
-    <TableView fx:id="clientesTable" style="-fx-pref-height: 400;">
+    <TableView fx:id="clientesTable" prefHeight="400">
         <columns>
             <TableColumn fx:id="colNome" text="Nome" prefWidth="250"/>
             <TableColumn fx:id="colEmail" text="Email" prefWidth="250"/>
