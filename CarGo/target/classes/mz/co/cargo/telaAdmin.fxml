@@ -133,7 +133,7 @@
 
         <Button fx:id="gerenciarClientes"
                 text="Gerenciar Clientes"
-                onAction="#abrirGerenciarClientes"
+                onAction="#abrirTeste"
                 style="-fx-background-color: #1e3a5f;"
                 textFill="#e0e0e0"
                 GridPane.columnIndex="1" GridPane.rowIndex="5"
