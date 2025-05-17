@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
@@ -162,7 +163,7 @@
             <Insets right="10.0" />
          </GridPane.margin>
       </Label>
-      <Button fx:id="criarContaButton" mnemonicParsing="false" onAction="#salvarVeiculo" prefHeight="40.0" prefWidth="188.0" style="-fx-background-color: #1e3a5f;" text="Salvar" textFill="#e0e0e0" GridPane.columnIndex="1" GridPane.rowIndex="11" GridPane.valignment="TOP">
+      <Button fx:id="salvarVeiculo" mnemonicParsing="false" onAction="#salvarVeiculo" prefHeight="40.0" prefWidth="188.0" style="-fx-background-color: #1e3a5f;" text="Salvar" textFill="#e0e0e0" GridPane.columnIndex="1" GridPane.rowIndex="11" GridPane.valignment="TOP">
          <font>
             <Font size="18.0" />
          </font>
@@ -170,11 +171,19 @@
             <Insets left="500.0" />
          </GridPane.margin>
       </Button>
-      <TextField fx:id="caminhoTextField" prefHeight="35.0" prefWidth="689.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
-         <GridPane.margin>
-            <Insets right="60.0" />
-         </GridPane.margin>
-      </TextField>
+      <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="10">
+         <TextField fx:id="caminhoTextField" editable="false" prefHeight="35.0" prefWidth="554.0">
+            <HBox.margin>
+               <Insets top="22.0" />
+            </HBox.margin></TextField>
+         <Button onAction="#selecionarArquivo" text="Selecionar Arquivo">
+            <HBox.margin>
+               <Insets top="22.0" />
+            </HBox.margin>
+            <font>
+               <Font size="16.0" />
+            </font></Button>
+      </HBox>
       <Button fx:id="btnVoltarAdmin" mnemonicParsing="false" onAction="#voltarParaTelaAdmin" prefHeight="40.0" prefWidth="188.0" style="-fx-background-color: #4A4A4A;" text="Voltar" textFill="#e0e0e0" GridPane.columnIndex="1" GridPane.rowIndex="11" GridPane.valignment="TOP">
          <font>
             <Font size="18.0" />

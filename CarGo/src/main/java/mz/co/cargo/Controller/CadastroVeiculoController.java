@@ -12,12 +12,15 @@ import javafx.stage.Stage;
 import mz.co.cargo.Repository.VeiculoRepository;
 import mz.co.cargo.Model.Veiculo;
 import mz.co.cargo.Service.VeiculoService;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import mz.co.cargo.Model.AdminUser;
+import javafx.stage.Window;
 
 public class CadastroVeiculoController {
 
@@ -128,6 +131,25 @@ public class CadastroVeiculoController {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void selecionarArquivo(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Selecionar Imagem do Veículo");
+
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Imagens", "*.jpg", "*.jpeg", "*.png")
+        );
+
+        // Obtém a janela da aplicação a partir do campo
+        Window stage = caminhoTextField.getScene().getWindow();
+
+        File arquivo = fileChooser.showOpenDialog(stage);
+
+        if (arquivo != null) {
+            caminhoTextField.setText(arquivo.getAbsolutePath());
         }
     }
 }
