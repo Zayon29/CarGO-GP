@@ -30,7 +30,7 @@ public class MenuVeiculo {
 
             switch (opcao) {
                 case 1 -> cadastrarVeiculo();
-                case 2 -> removerVeiculo();
+                //case 2 -> removerVeiculo();
                 case 3 -> editarVeiculo();
                 case 4 -> alterarStatus();
                 case 5 -> listarVeiculos();
@@ -47,12 +47,12 @@ public class MenuVeiculo {
         System.out.println(resultado);
     }
 
-    private static void removerVeiculo() {
-        System.out.print("Digite a placa do veículo a remover: ");
-        String placa = scanner.nextLine();
-        String resultado = VeiculoService.removerVeiculo(placa);
-        System.out.println(resultado);
-    }
+   // private static void removerVeiculo() {
+   //     System.out.print("Digite a placa do veículo a remover: ");
+   //     String placa = scanner.nextLine();
+     //   String resultado = VeiculoService.removerVeiculo(placa);
+       // System.out.println(resultado);
+    //}
 
     private static void editarVeiculo() {
         Veiculo veiculo = lerDadosVeiculo(true);

@@ -44,13 +44,13 @@ public class VeiculoService {
     }
 
 
-    public static String removerVeiculo(String placa) {
+    public static Boolean removerVeiculo(String placa) {
         if (!VeiculoRepository.existePlaca(placa)) {
-            return "Erro: Nenhum veículo encontrado com essa placa.";
+            return false;
+        } else {
+            VeiculoRepository.removerVeiculo(placa);
+            return true;
         }
-
-        VeiculoRepository.removerVeiculo(placa);
-        return "Veículo removido com sucesso!";
     }
 
     // editar veículo- precisa de validação

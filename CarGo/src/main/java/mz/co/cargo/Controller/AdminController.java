@@ -92,6 +92,25 @@ public class AdminController {
         }
     }
 
+    @FXML
+    private void abrirGerenciarVeiculos(ActionEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/mz/co/cargo/gerenciarVeiculos.fxml"));
+            Parent cadastroRoot = loader.load();
+
+            GerenciarVeiculosController ctrl = loader.getController();
+            ctrl.setAdminLogado(adminLogado);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(cadastroRoot));
+            stage.setTitle("Gerenciamento de Veiculos - CarGo");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Não foi possível abrir o gerenciamento de veiculos.").showAndWait();
+        }
+    }
+
 
 
 
