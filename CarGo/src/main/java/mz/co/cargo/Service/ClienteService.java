@@ -52,8 +52,8 @@ public class ClienteService {
         return ClienteRepository.buscarClientesPorNome(nome);
     }
 
-    public static boolean excluirCliente(int id){
-        return ClienteRepository.excluirCliente(id);
+    public static boolean excluirCliente(String email){
+        return ClienteRepository.excluirCliente(email);
     }
 
 }

@@ -72,33 +72,15 @@ public class AdminController {
         }
     }
 
-    @FXML
-    private void abrirGerenciarClientes(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/mz/co/cargo/GerenciarClientes.fxml"));
-
-            Parent cadastroRoot = loader.load();
-
-            GerenciarClientesController ctrl = loader.getController();
-            ctrl.setAdminLogado(adminLogado);
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(cadastroRoot));
-            stage.setTitle("Gerenciamento de Clientes - CarGo");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR,
-                    "Não foi possível abrir a tela de gerenciamento de clientes.")
-                    .showAndWait();
-        }
-    }
 
     @FXML
     private void abrirTeste(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/mz/co/cargo/teste.fxml"));
             Parent cadastroRoot = loader.load();
+
+            Teste ctrl = loader.getController();
+            ctrl.setAdminLogado(adminLogado);
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(cadastroRoot));

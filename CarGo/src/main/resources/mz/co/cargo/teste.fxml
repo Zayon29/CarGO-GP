@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="mz.co.cargo.Controller.Teste"
             prefHeight="400.0" prefWidth="600.0">
 
+    <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
+        <HBox spacing="10">
+            <TextField fx:id="campoBusca" promptText="Buscar cliente por nome" />
+            <Button text="Buscar" onAction="#buscarCliente" />
+            <Button text="Atualizar" onAction="#atualizarTabela" />
+        </HBox>
+
+        <TableView fx:id="tabelaClientes" prefHeight="300">
+            <columns>
+                <TableColumn fx:id="colNome" text="Nome" prefWidth="200"/>
+                <TableColumn fx:id="colEmail" text="Email" prefWidth="200"/>
+            </columns>
+        </TableView>
+
+        <VBox spacing="10" alignment="CENTER_RIGHT">
+            <Button text="Excluir Cliente Selecionado" onAction="#excluirClienteSelecionado" />
+            <Button text="Voltar" onAction="#voltarParaTelaAdmin" />
+        </VBox>
+    </VBox>
 </AnchorPane>

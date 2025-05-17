@@ -60,8 +60,9 @@ public class ClienteRepository {
 
     public static List<ClienteUser> buscarTodosClientes() {
         List<ClienteUser> lista = new ArrayList<>();
+        String sql = "SELECT * FROM cliente ORDER BY nome ASC"; // <-- ordena por nome
         try (Connection conn = ClienteDatabase.connect();
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM cliente");
+             PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -91,12 +92,12 @@ public class ClienteRepository {
         return lista;
     }
 
-    public static boolean excluirCliente(int id) {
-        String sql = "DELETE FROM cliente WHERE id = ?";
+    public static boolean excluirCliente(String email) {
+        String sql = "DELETE FROM cliente WHERE email = ?";
         try (Connection conn = ClienteDatabase.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, id);
+            stmt.setString(1, email);
             int affected = stmt.executeUpdate();
             return affected > 0;
         } catch (SQLException e) {
@@ -104,6 +105,7 @@ public class ClienteRepository {
             return false;
         }
     }
+
 
 
     public static ClienteUser loginCliente(String email, String senha) {
@@ -127,4 +129,7 @@ public class ClienteRepository {
 
         return cliente;
     }
+
+
+
 }
