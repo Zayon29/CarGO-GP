@@ -103,12 +103,21 @@ public class VeiculoService {
                     return 0;
                 })
                 .collect(Collectors.toList());
-
-
-
-
-
     }
+
+    public static List<Veiculo> buscarPorStatus(int num) {
+        switch (num) {
+            case 1:
+                return VeiculoRepository.buscarVeiculosStatus("Em_manutencao");
+            case 2:
+                return VeiculoRepository.buscarVeiculosStatus("disponivel");
+            case 3:
+                return VeiculoRepository.buscarVeiculosStatus("indisponivel");
+            default:
+                return null;
+        }
+    }
+
 }
 
 

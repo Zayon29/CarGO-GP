@@ -59,6 +59,7 @@ public class MenuAdmin {
             System.out.println("5. Alterar status de um veículo para 'DISPONIVEL'");
             System.out.println("6. Listar Veiculos");
             System.out.println("7. Listar Clientes");
+            System.out.println("8. Buscar Veiculos");
 
             System.out.print("Escolha uma opção: ");
 
@@ -86,6 +87,7 @@ public class MenuAdmin {
                 }
                 case 6 -> MenuVeiculo.listarVeiculos();
                 case 7 -> MenuCliente.listarClientes();
+                case 8 -> menuFiltrarVeiculos();
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida.");
             }
@@ -139,7 +141,7 @@ public class MenuAdmin {
         String data = java.time.LocalDate.now().toString();
 
         // Registrar a manutenção
-        Manutencao m = new Manutencao(0, placa, descricao, data);
+        Manutencao m = new Manutencao(placa, descricao, data);
         ManutencaoRepository.registrarManutencao(m);
 
         // Alterar o status do veículo para "EM_MANUTENCAO"
@@ -183,4 +185,41 @@ public class MenuAdmin {
         }
     }
 
+    public static void menuFiltrarVeiculos() {
+        Scanner scanner = new Scanner(System.in); // Certifique-se que o Scanner está disponível
+        int num;
+
+        do {
+            System.out.println("Quais veículos buscar?");
+            System.out.println("1. Em manutenção");
+            System.out.println("2. Disponíveis");
+            System.out.println("3. Indisponíveis");
+            System.out.println("0. Voltar");
+            System.out.print("Opção: ");
+
+            try {
+                num = Integer.parseInt(scanner.nextLine());
+
+                if (num == 0) {
+                    System.out.println("Voltando ao menu anterior...");
+                    break;
+                }
+
+                List<Veiculo> veiculos = VeiculoService.buscarPorStatus(num);
+                if (veiculos != null && !veiculos.isEmpty()) {
+                    for (Veiculo v : veiculos) {
+                        System.out.println(v);
+                    }
+                } else {
+                    System.out.println("Sem veículos com esse status.");
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.println("Por favor, digite um número válido.");
+                num = -1;
+            }
+
+        } while (true);
     }
+
+}

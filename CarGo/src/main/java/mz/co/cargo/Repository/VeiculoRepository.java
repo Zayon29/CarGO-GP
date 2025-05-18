@@ -222,6 +222,29 @@ public class VeiculoRepository {
         return null; // Retorna null caso não encontre o veículo
     }
 
+    public static List<Veiculo> buscarVeiculosStatus(String termoBusca) {
+        List<Veiculo> lista = new ArrayList<>();
+        String sql = "SELECT * FROM veiculo WHERE LOWER(status) LIKE ?;";
+
+        try (Connection conn = VeiculoDatabase.connect();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, "%" + termoBusca.toLowerCase() + "%");
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    lista.add(mapearVeiculo(rs));
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao buscar veículos por status parcial: " + e.getMessage());
+        }
+
+        return lista;
+    }
+
+
 
 
 

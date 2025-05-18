@@ -65,4 +65,20 @@ public class Veiculo {
     public void setImagens(List<String> imagens) {
         this.imagens = imagens;
     }
+
+    public String toString() {
+        return "Veículo {" +
+                "Marca='" + marca + '\'' +
+                ", Modelo='" + modelo + '\'' +
+                ", Ano=" + anoFabricacao +
+                ", Placa='" + placa + '\'' +
+                ", Chassi='" + chassi + '\'' +
+                ", Preço=" + precoAluguel +
+                ", Status='" + status + '\'' +
+                ", Quilometragem=" + quilometragem +
+                ", Combustível='" + tipoCombustivel + '\'' +
+                ", Imagens=" + imagens +
+                '}';
+    }
+
 }

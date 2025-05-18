@@ -37,7 +37,6 @@ public class ManutencaoRepository {
 
             while (rs.next()) {
                 lista.add(new Manutencao(
-                        rs.getInt("id"),
                         rs.getString("placa"),
                         rs.getString("descricao"),
                         rs.getString("data")
@@ -50,4 +49,8 @@ public class ManutencaoRepository {
 
         return lista;
     }
+
+
+
+
 }

@@ -7,8 +7,7 @@ public class Manutencao {
     private String descricao;
 
 
-    public Manutencao( int Id, String placa, String data, String descricao) {
-        this.id = id;
+    public Manutencao(String placa, String data, String descricao) {
         this.placa = placa;
         this.descricao = descricao;
         this.data = data;
