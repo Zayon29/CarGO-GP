@@ -22,6 +22,9 @@ import mz.co.cargo.Repository.ClienteRepository;
 import mz.co.cargo.Service.VeiculoService;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class GerenciarVeiculosController {
 
@@ -129,6 +132,88 @@ public class GerenciarVeiculosController {
             e.printStackTrace();
         }
     }
+
+    private void aplicarFiltroPorStatus(String status) {
+        List<Veiculo> veiculosFiltrados;
+
+        if (status == null || status.trim().isEmpty()) {
+            veiculosFiltrados = VeiculoService.buscarTodosVeiculos();
+        } else {
+            int codigoStatus = statusParaCodigo(status);
+            veiculosFiltrados = VeiculoService.buscarPorStatus(codigoStatus);
+        }
+
+        tabelaVeiculos.setItems(FXCollections.observableArrayList(veiculosFiltrados));
+    }
+
+    private int statusParaCodigo(String status) {
+        switch (status.toLowerCase()) {
+            case "em_manutencao":
+                return 1;
+            case "disponivel":
+                return 2;
+            case "indisponivel":
+                return 3;
+            default:
+                return -1;
+        }
+    }
+
+
+
+
+    @FXML
+    private void filtrarTodos(ActionEvent event) {
+        aplicarFiltroPorStatus(null);
+    }
+
+    @FXML
+    private void filtrarDisponivel(ActionEvent event) {
+        aplicarFiltroPorStatus("disponivel");
+    }
+
+    @FXML
+    private void filtrarIndisponivel(ActionEvent event) {
+        aplicarFiltroPorStatus("indisponivel");
+    }
+
+    @FXML
+    private void filtrarEmManutencao(ActionEvent event) {
+        aplicarFiltroPorStatus("em_manutencao");
+    }
+
+    @FXML
+    public void abrirTelaVeiculo(ActionEvent event) {
+        Veiculo veiculoSelecionado = tabelaVeiculos.getSelectionModel().getSelectedItem();
+        if (veiculoSelecionado == null) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Selecione um veículo para visualizar.");
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/mz/co/cargo/VeiculoAdmin.fxml"));
+            Parent root = loader.load();
+
+            VeiculoAdminController controller = loader.getController();
+            controller.setAdminLogado(adminLogado);
+            controller.carregarVeiculo(veiculoSelecionado);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Detalhes do Veículo - CarGo");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarAlerta(Alert.AlertType.ERROR, "Erro ao abrir a tela do veículo.");
+        }
+
+    }
+
+
+
+
+
 }
 
 

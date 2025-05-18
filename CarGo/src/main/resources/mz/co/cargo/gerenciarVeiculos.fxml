@@ -31,6 +31,21 @@
             <Button text="Excluir Veículo Selecionado" onAction="#excluirVeiculoSelecionado" />
             <Button text="Voltar" onAction="#voltarParaTelaAdmin" />
         </HBox>
+
+        <!-- Botões de filtro e ação -->
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <Button text="Ver Veiculo" onAction="#abrirTelaVeiculo"/>
+
+            <MenuButton text="Filtrar por Status" fx:id="menuFiltroStatus">
+                <items>
+                    <MenuItem text="Todos" onAction="#filtrarTodos"/>
+                    <MenuItem text="Disponível" onAction="#filtrarDisponivel"/>
+                    <MenuItem text="Indisponível" onAction="#filtrarIndisponivel"/>
+                    <MenuItem text="Em Manutenção" onAction="#filtrarEmManutencao"/>
+                </items>
+            </MenuButton>
+        </HBox>
+
     </VBox>
 
 </AnchorPane>

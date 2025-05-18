@@ -1,4 +1,4 @@
-package mz.co.cargo.service;
+package mz.co.cargo.Service;
 
 import mz.co.cargo.Model.Manutencao;
 import mz.co.cargo.Repository.ManutencaoRepository;

@@ -1,10 +1,10 @@
 package mz.co.cargo.Model;
 
 public class Manutencao {
-    private int id;
-    private String placa;
-    private String data;
-    private String descricao;
+    protected int id;
+    protected String placa;
+    protected String data;
+    protected String descricao;
 
 
     public Manutencao(String placa, String data, String descricao) {
