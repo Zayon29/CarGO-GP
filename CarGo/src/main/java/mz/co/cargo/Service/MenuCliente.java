@@ -5,7 +5,10 @@ import mz.co.cargo.Model.Aluguel;
 import mz.co.cargo.Model.ClienteUser;
 import mz.co.cargo.Model.Veiculo;
 import mz.co.cargo.Repository.DatabaseInitializer;
+import mz.co.cargo.Repository.VeiculoRepository;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -62,6 +65,9 @@ public class MenuCliente {
             System.out.println("\n=== MENU CLIENTE ===");
             System.out.println("1. Ver informações cliente");
             System.out.println("2. Ver carros");
+            System.out.println("3. Alugar carro");
+            System.out.println("4. Ver meus aluguéis ativos");
+            System.out.println("5. Devolver um carro alugado");
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
 
@@ -75,13 +81,32 @@ public class MenuCliente {
 
             switch (opcao) {
                 case 1 -> exibirInfos(cliente);
-                case 2 -> menuBuscarVeiculos(); //antes era só listar veiculos,essa esta a busca filtrada
+                case 2 -> menuBuscarVeiculos();
+                case 3 -> realizarAluguelCliente(cliente, scanner);
+                case 4 -> verHistoricoCliente(cliente);
+                case 5 -> devolverCarroAlugado(cliente);
+                case 6 -> AluguelService.limparAlugueis(cliente.getEmail());
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida.");
             }
 
         } while (opcao != 0);
     }
+
+    public static void realizarAluguelCliente(ClienteUser cliente, Scanner scanner) {
+        System.out.print("Digite a placa do veículo que deseja alugar: ");
+        String placa = scanner.nextLine().toUpperCase();
+
+        System.out.print("Digite a data de início do aluguel (YYYY-MM-DD): ");
+        String dataInicio = scanner.nextLine();
+
+        System.out.print("Digite a data de fim do aluguel (YYYY-MM-DD): ");
+        String dataFim = scanner.nextLine();
+
+        String resultado = AluguelService.realizarAluguel(placa, dataInicio, dataFim, cliente.getEmail());
+        System.out.println(resultado);
+    }
+
 
     public static String cadastrarCliente() {
 
@@ -176,25 +201,66 @@ public class MenuCliente {
             System.out.println("Nenhum veículo encontrado com os filtros informados.");
         } else {
             for (Veiculo v : resultados) {
-                System.out.printf("• %s %s (%d) | R$ %.2f | %s\n",
-                        v.getMarca(), v.getModelo(), v.getAnoFabricacao(),
-                        v.getPrecoAluguel(), v.getStatus());
+                System.out.printf("• [%s] %s %s (%d) | R$ %.2f | %s\n",
+                        v.getPlaca(), v.getMarca(), v.getModelo(),
+                        v.getAnoFabricacao(), v.getPrecoAluguel(), v.getStatus());
             }
         }
     }
 
+
     public static void verHistoricoCliente(ClienteUser cliente) {
         List<Aluguel> lista = AluguelService.buscarHistoricoCliente(cliente.getEmail());
+        LocalDate hoje = LocalDate.now();
 
         if (lista.isEmpty()) {
             System.out.println("Você ainda não tem aluguéis registrados.");
         } else {
-            System.out.println("\n=== SEU HISTÓRICO DE ALUGUEL ===");
+            System.out.println("\n=== SEUS ALUGUEIS ===");
             for (Aluguel a : lista) {
+                LocalDate fim = LocalDate.parse(a.getDataFim());
+                String status;
+
+                if (fim.isBefore(hoje)) {
+                    status = "🔴 VENCIDO";
+                } else {
+                    status = "🟢 ATIVO";
+                }
+
+                System.out.printf("• Placa: %s | De %s até %s | %s\n",
+                        a.getPlaca(), a.getDataInicio(), a.getDataFim(), status);
+            }
+        }
+    }
+
+    public static void devolverCarroAlugado(ClienteUser cliente) {
+        List<Aluguel> lista = AluguelService.buscarHistoricoCliente(cliente.getEmail());
+        LocalDate hoje = LocalDate.now();
+        boolean temAtivo = false;
+
+        System.out.println("\n=== DEVOLUÇÃO DE VEÍCULO ===");
+
+        for (Aluguel a : lista) {
+            LocalDate fim = LocalDate.parse(a.getDataFim());
+
+            if (!fim.isBefore(hoje)) {
+                temAtivo = true;
                 System.out.printf("• Placa: %s | De %s até %s\n",
                         a.getPlaca(), a.getDataInicio(), a.getDataFim());
             }
         }
+
+        if (!temAtivo) {
+            System.out.println("Você não possui veículos ativos para devolução.");
+            return;
+        }
+
+        System.out.print("Digite a placa do veículo que deseja devolver: ");
+        String placa = scanner.nextLine().toUpperCase();
+
+        VeiculoRepository.alterarStatusVeiculo(placa, "DISPONIVEL");
+
+        System.out.println("Veículo devolvido com sucesso!");
     }
 
 

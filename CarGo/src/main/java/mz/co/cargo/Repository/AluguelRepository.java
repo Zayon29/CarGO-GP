@@ -92,6 +92,51 @@ public class AluguelRepository {
         return lista;
     }
 
+    public static String limparAlugueisPorEmailCliente(String emailCliente) {
+        if (emailCliente == null || emailCliente.isEmpty()) {
+            return "Erro: email do cliente inválido.";
+        }
+
+        List<Aluguel> alugueisCliente = buscarPorEmailCliente(emailCliente);
+
+        if (alugueisCliente.isEmpty()) {
+            return "Nenhum aluguel encontrado para este cliente.";
+        }
+
+        try (Connection conn = AluguelDatabase.connect()) {
+            // Começar transação
+            conn.setAutoCommit(false);
+
+            try {
+                // Atualizar status dos veículos para DISPONIVEL
+                for (Aluguel aluguel : alugueisCliente) {
+                    VeiculoRepository.alterarStatusVeiculo(aluguel.getPlaca(), "DISPONIVEL");
+                }
+
+                // Deletar os alugueis do cliente
+                String sqlDelete = "DELETE FROM aluguel WHERE email_cliente = ?";
+                try (PreparedStatement pstmt = conn.prepareStatement(sqlDelete)) {
+                    pstmt.setString(1, emailCliente);
+                    pstmt.executeUpdate();
+                }
+
+                // Commit na transação
+                conn.commit();
+                return "Todos os aluguéis do cliente foram removidos com sucesso.";
+
+            } catch (Exception e) {
+                conn.rollback(); // rollback em caso de erro
+                System.out.println("Erro ao limpar aluguéis do cliente: " + e.getMessage());
+                return "Erro ao limpar aluguéis do cliente.";
+            } finally {
+                conn.setAutoCommit(true);
+            }
+        } catch (Exception e) {
+            System.out.println("Erro na conexão com o banco: " + e.getMessage());
+            return "Erro na conexão com o banco.";
+        }
+    }
+
 
 
 
