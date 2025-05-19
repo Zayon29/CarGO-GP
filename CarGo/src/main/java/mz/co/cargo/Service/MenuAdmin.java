@@ -1,5 +1,6 @@
 package mz.co.cargo.Service;
 
+import mz.co.cargo.Model.Aluguel;
 import mz.co.cargo.Model.Manutencao;
 import mz.co.cargo.Model.Veiculo;
 import mz.co.cargo.Repository.DatabaseInitializer;
@@ -60,6 +61,9 @@ public class MenuAdmin {
             System.out.println("6. Listar Veiculos");
             System.out.println("7. Listar Clientes");
             System.out.println("8. Buscar Veiculos");
+            System.out.println("9. Registrar Aluguel");
+            System.out.println("10. Ver calendário de aluguéis");
+
 
             System.out.print("Escolha uma opção: ");
 
@@ -88,6 +92,8 @@ public class MenuAdmin {
                 case 6 -> MenuVeiculo.listarVeiculos();
                 case 7 -> MenuCliente.listarClientes();
                 case 8 -> menuFiltrarVeiculos();
+                case 9 -> registrarAluguel();
+                case 10 -> verCalendario();
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida.");
             }
@@ -221,5 +227,34 @@ public class MenuAdmin {
 
         } while (true);
     }
+    public static void registrarAluguel() {
+        System.out.print("Placa do veículo: ");
+        String placa = scanner.nextLine();
+
+        System.out.print("Data de início (AAAA-MM-DD): ");
+        String inicio = scanner.nextLine();
+
+        System.out.print("Data de fim (AAAA-MM-DD): ");
+        String fim = scanner.nextLine();
+
+        String resultado = AluguelService.realizarAluguel(placa, inicio, fim);
+        System.out.println(resultado);
+    }
+
+    public static void verCalendario() {
+        System.out.print("Placa do veículo: ");
+        String placa = scanner.nextLine();
+
+        List<Aluguel> lista = AluguelService.listarPorPlaca(placa);
+        if (lista.isEmpty()) {
+            System.out.println("Nenhum aluguel registrado.");
+        } else {
+            System.out.println("\n=== CALENDÁRIO DE ALUGUÉIS ===");
+            for (Aluguel a : lista) {
+                System.out.printf("• %s → %s\n", a.getDataInicio(), a.getDataFim());
+            }
+        }
+    }
+
 
 }

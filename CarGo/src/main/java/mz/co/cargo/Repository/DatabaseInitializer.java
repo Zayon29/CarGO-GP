@@ -7,6 +7,7 @@ public class DatabaseInitializer {
             ClienteDatabase.inicializar();
             AdminDatabase.inicializar();
             ManutencaoDatabase.inicializar();
+            AluguelDatabase.inicializar();
         }
     }
 
