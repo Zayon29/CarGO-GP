@@ -129,6 +129,20 @@ public class ClienteRepository {
 
         return cliente;
     }
+    public static boolean emailExiste(String email) {
+        String sql = "SELECT 1 FROM cliente WHERE email = ? LIMIT 1";
+
+        try (Connection conn = ClienteDatabase.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            return rs.next();
+        } catch (Exception e) {
+            System.out.println("Erro ao verificar e-mail do cliente: " + e.getMessage());
+            return false;
+        }
+    }
+
 
 
 

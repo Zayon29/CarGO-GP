@@ -8,17 +8,21 @@ import java.util.List;
 public class AluguelRepository {
 
     public static void registrarAluguel(Aluguel aluguel) {
-        String sql = "INSERT INTO aluguel (placa, data_inicio, data_fim) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO aluguel (placa, data_inicio, data_fim, email_cliente) VALUES (?, ?, ?, ?)";
         try (Connection conn = AluguelDatabase.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
             pstmt.setString(1, aluguel.getPlaca());
             pstmt.setString(2, aluguel.getDataInicio());
             pstmt.setString(3, aluguel.getDataFim());
+            pstmt.setString(4, aluguel.getEmailCliente());
             pstmt.executeUpdate();
+
         } catch (Exception e) {
             System.out.println("Erro ao registrar aluguel: " + e.getMessage());
         }
     }
+
 
     public static List<Aluguel> buscarPorPlaca(String placa) {
         List<Aluguel> lista = new ArrayList<>();
@@ -34,7 +38,9 @@ public class AluguelRepository {
                         rs.getInt("id"),
                         rs.getString("placa"),
                         rs.getString("data_inicio"),
-                        rs.getString("data_fim")
+                        rs.getString("data_fim"),
+                        rs.getString("email_cliente")
+
                 ));
             }
         } catch (Exception e) {
@@ -60,5 +66,34 @@ public class AluguelRepository {
             return true;
         }
     }
+
+    public static List<Aluguel> buscarPorEmailCliente(String email) {
+        List<Aluguel> lista = new ArrayList<>();
+        String sql = "SELECT * FROM aluguel WHERE email_cliente = ? ORDER BY data_inicio DESC";
+
+        try (Connection conn = AluguelDatabase.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                lista.add(new Aluguel(
+                        rs.getInt("id"),
+                        rs.getString("placa"),
+                        rs.getString("data_inicio"),
+                        rs.getString("data_fim"),
+                        rs.getString("email_cliente")
+                ));
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao buscar aluguéis por cliente: " + e.getMessage());
+        }
+
+        return lista;
+    }
+
+
+
+
 }
 

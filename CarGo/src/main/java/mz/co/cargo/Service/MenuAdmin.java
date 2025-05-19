@@ -63,6 +63,7 @@ public class MenuAdmin {
             System.out.println("8. Buscar Veiculos");
             System.out.println("9. Registrar Aluguel");
             System.out.println("10. Ver calendário de aluguéis");
+            System.out.println("11. Ver Histórico de Cliente");
 
 
             System.out.print("Escolha uma opção: ");
@@ -94,6 +95,7 @@ public class MenuAdmin {
                 case 8 -> menuFiltrarVeiculos();
                 case 9 -> registrarAluguel();
                 case 10 -> verCalendario();
+                case 11 -> verHistoricoDeCliente();
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida.");
             }
@@ -237,7 +239,16 @@ public class MenuAdmin {
         System.out.print("Data de fim (AAAA-MM-DD): ");
         String fim = scanner.nextLine();
 
-        String resultado = AluguelService.realizarAluguel(placa, inicio, fim);
+        System.out.print("E-mail do cliente que está alugando: ");
+        String emailCliente = scanner.nextLine();
+
+        String resultado = AluguelService.realizarAluguel(
+                placa,
+                inicio,
+                fim,
+                emailCliente
+        );
+
         System.out.println(resultado);
     }
 
@@ -256,5 +267,18 @@ public class MenuAdmin {
         }
     }
 
+    public static void verHistoricoDeCliente() {
+        System.out.print("Digite o e-mail do cliente: ");
+        String email = scanner.nextLine();
+
+        List<Aluguel> lista = AluguelService.buscarHistoricoCliente(email);
+        if (lista.isEmpty()) {
+            System.out.println("Nenhum aluguel encontrado para esse cliente.");
+        } else {
+            for (Aluguel a : lista) {
+                System.out.printf("• Placa: %s | De %s até %s\n", a.getPlaca(), a.getDataInicio(), a.getDataFim());
+            }
+        }
+    }
 
 }

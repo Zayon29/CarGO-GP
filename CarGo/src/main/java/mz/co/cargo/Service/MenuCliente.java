@@ -1,6 +1,7 @@
 package mz.co.cargo.Service;
 
 import mz.co.cargo.Model.AdminUser;
+import mz.co.cargo.Model.Aluguel;
 import mz.co.cargo.Model.ClienteUser;
 import mz.co.cargo.Model.Veiculo;
 import mz.co.cargo.Repository.DatabaseInitializer;
@@ -181,6 +182,22 @@ public class MenuCliente {
             }
         }
     }
+
+    public static void verHistoricoCliente(ClienteUser cliente) {
+        List<Aluguel> lista = AluguelService.buscarHistoricoCliente(cliente.getEmail());
+
+        if (lista.isEmpty()) {
+            System.out.println("Você ainda não tem aluguéis registrados.");
+        } else {
+            System.out.println("\n=== SEU HISTÓRICO DE ALUGUEL ===");
+            for (Aluguel a : lista) {
+                System.out.printf("• Placa: %s | De %s até %s\n",
+                        a.getPlaca(), a.getDataInicio(), a.getDataFim());
+            }
+        }
+    }
+
+
 
 
 }
