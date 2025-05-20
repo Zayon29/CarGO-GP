@@ -152,7 +152,7 @@ public class GerenciarVeiculosController {
                 return 1;
             case "disponivel":
                 return 2;
-            case "indisponivel":
+            case "alugado":
                 return 3;
             default:
                 return -1;
@@ -173,8 +173,8 @@ public class GerenciarVeiculosController {
     }
 
     @FXML
-    private void filtrarIndisponivel(ActionEvent event) {
-        aplicarFiltroPorStatus("indisponivel");
+    private void filtrarAlugado(ActionEvent event) {
+        aplicarFiltroPorStatus("alugado");
     }
 
     @FXML

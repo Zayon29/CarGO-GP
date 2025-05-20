@@ -34,7 +34,7 @@
             <TextField fx:id="precoTextField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
 
             <Label text="Status:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-            <TextField fx:id="statusTextField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+            <ComboBox fx:id="statusComboBox" GridPane.rowIndex="5" GridPane.columnIndex="1" prefWidth="200"/>
 
             <Label text="Quilometragem:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
             <TextField fx:id="kmTextField" GridPane.rowIndex="6" GridPane.columnIndex="1"/>

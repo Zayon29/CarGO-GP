@@ -20,6 +20,9 @@ import mz.co.cargo.Service.VeiculoService;
 import mz.co.cargo.Service.ManutencaoService;
 
 import java.io.IOException;
+import javafx.scene.control.ComboBox;
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 
 public class VeiculoAdminController {
 
@@ -28,7 +31,8 @@ public class VeiculoAdminController {
         @FXML private TextField anoFabricacaoTextField;
         @FXML private TextField placaTextField;
         @FXML private TextField precoTextField;
-        @FXML private TextField statusTextField;
+    @FXML
+    private ComboBox<String> statusComboBox;
         @FXML private TextField kmTextField;
         @FXML private TextField combustivelTextField;
 
@@ -53,6 +57,9 @@ public class VeiculoAdminController {
     public void initialize() {
         colunaData.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getData()));
         colunaDescricao.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescricao()));
+
+        ObservableList<String> opcoesStatus = FXCollections.observableArrayList("Disponível", "Em Manutenção");
+        statusComboBox.setItems(opcoesStatus);
     }
 
 
@@ -65,11 +72,18 @@ public class VeiculoAdminController {
             anoFabricacaoTextField.setText(String.valueOf(veiculo.getAnoFabricacao()));
             placaTextField.setText(veiculo.getPlaca());
             precoTextField.setText(String.valueOf(veiculo.getPrecoAluguel()));
-            statusTextField.setText(veiculo.getStatus());
             kmTextField.setText(String.valueOf(veiculo.getQuilometragem()));
             combustivelTextField.setText(veiculo.getTipoCombustivel());
 
-            carregarHistorico(veiculo);
+        statusComboBox.setValue(veiculo.getStatus());
+        if ("Alugado".equalsIgnoreCase(veiculo.getStatus())) {
+            statusComboBox.setDisable(true);
+        } else {
+            statusComboBox.setDisable(false);
+        }
+
+
+        carregarHistorico(veiculo);
         }
 
     private void carregarHistorico(Veiculo veiculo) {
@@ -86,7 +100,7 @@ public class VeiculoAdminController {
                 veiculoSelecionado.setAnoFabricacao(Integer.parseInt(anoFabricacaoTextField.getText()));
                 veiculoSelecionado.setPlaca(placaTextField.getText());
                 veiculoSelecionado.setPrecoAluguel(Double.parseDouble(precoTextField.getText()));
-                veiculoSelecionado.setStatus(statusTextField.getText());
+                veiculoSelecionado.setStatus(statusComboBox.getValue());
                 veiculoSelecionado.setQuilometragem(Integer.parseInt(kmTextField.getText()));
                 veiculoSelecionado.setTipoCombustivel(combustivelTextField.getText());
 

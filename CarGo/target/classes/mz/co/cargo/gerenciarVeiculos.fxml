@@ -40,7 +40,7 @@
                 <items>
                     <MenuItem text="Todos" onAction="#filtrarTodos"/>
                     <MenuItem text="Disponível" onAction="#filtrarDisponivel"/>
-                    <MenuItem text="Indisponível" onAction="#filtrarIndisponivel"/>
+                    <MenuItem text="Alugado" onAction="#filtrarAlugado"/>
                     <MenuItem text="Em Manutenção" onAction="#filtrarEmManutencao"/>
                 </items>
             </MenuButton>

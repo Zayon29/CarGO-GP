@@ -112,7 +112,7 @@ public class VeiculoService {
             case 2:
                 return VeiculoRepository.buscarVeiculosStatus("disponivel");
             case 3:
-                return VeiculoRepository.buscarVeiculosStatus("indisponivel");
+                return VeiculoRepository.buscarVeiculosStatus("alugado");
             default:
                 return null;
         }
