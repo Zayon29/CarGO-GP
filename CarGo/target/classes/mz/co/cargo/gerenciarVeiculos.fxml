@@ -1,51 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="mz.co.cargo.Controller.GerenciarVeiculosController"
-            prefHeight="600.0" prefWidth="900.0">
+<AnchorPane prefHeight="565.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mz.co.cargo.Controller.GerenciarVeiculosController">
 
-    <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
+    <VBox spacing="10" style="-fx-background-color: #E0E0E0;" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10">
 
         <!-- Tabela de veículos -->
         <TableView fx:id="tabelaVeiculos" prefHeight="500">
             <columns>
-                <TableColumn fx:id="colMarca" text="Marca" prefWidth="100"/>
-                <TableColumn fx:id="colModelo" text="Modelo" prefWidth="100"/>
-                <TableColumn fx:id="colAnoFabricacao" text="Ano" prefWidth="70"/>
-                <TableColumn fx:id="colPlaca" text="Placa" prefWidth="100"/>
-                <TableColumn fx:id="colChassi" text="Chassi" prefWidth="120"/>
-                <TableColumn fx:id="colPrecoAluguel" text="Preço Aluguel" prefWidth="100"/>
-                <TableColumn fx:id="colStatus" text="Status" prefWidth="80"/>
-                <TableColumn fx:id="colQuilometragem" text="Km" prefWidth="80"/>
-                <TableColumn fx:id="colCombustivel" text="Combustível" prefWidth="100"/>
+                <TableColumn fx:id="colMarca" prefWidth="100" text="Marca" />
+                <TableColumn fx:id="colModelo" prefWidth="100" text="Modelo" />
+                <TableColumn fx:id="colAnoFabricacao" prefWidth="70" text="Ano" />
+                <TableColumn fx:id="colPlaca" prefWidth="100" text="Placa" />
+                <TableColumn fx:id="colChassi" prefWidth="120" text="Chassi" />
+                <TableColumn fx:id="colPrecoAluguel" prefWidth="100" text="Preço Aluguel" />
+                <TableColumn fx:id="colStatus" prefWidth="80" text="Status" />
+                <TableColumn fx:id="colQuilometragem" prefWidth="80" text="Km" />
+                <TableColumn fx:id="colCombustivel" prefWidth="100" text="Combustível" />
             </columns>
         </TableView>
 
         <!-- Botões de ação -->
-        <HBox spacing="10" alignment="CENTER_RIGHT">
-            <Button text="Atualizar" onAction="#atualizarTabela" />
-            <Button text="Excluir Veículo Selecionado" onAction="#excluirVeiculoSelecionado" />
-            <Button text="Voltar" onAction="#voltarParaTelaAdmin" />
-        </HBox>
+        <HBox alignment="CENTER_RIGHT" spacing="10">
+            <Button onAction="#abrirTelaVeiculo" style="-fx-background-color: #1e3a5f;" text="Ver Veiculo" textFill="#e0e0e0" />
+            <Button onAction="#atualizarTabela" style="-fx-background-color: #1e3a5f;" text="Atualizar" textFill="#e0e0e0" />
 
-        <!-- Botões de filtro e ação -->
-        <HBox spacing="10" alignment="CENTER_RIGHT">
-            <Button text="Ver Veiculo" onAction="#abrirTelaVeiculo"/>
-
-            <MenuButton text="Filtrar por Status" fx:id="menuFiltroStatus">
+            <MenuButton fx:id="menuFiltroStatus" style="-fx-background-color: #1e3a5f;" text="Filtrar por Status" textFill="#e0e0e0">
                 <items>
-                    <MenuItem text="Todos" onAction="#filtrarTodos"/>
-                    <MenuItem text="Disponível" onAction="#filtrarDisponivel"/>
-                    <MenuItem text="Alugado" onAction="#filtrarAlugado"/>
-                    <MenuItem text="Em Manutenção" onAction="#filtrarEmManutencao"/>
+                    <MenuItem onAction="#filtrarTodos" text="Todos" />
+                    <MenuItem onAction="#filtrarDisponivel" text="Disponível" />
+                    <MenuItem onAction="#filtrarAlugado" text="Alugado" />
+                    <MenuItem onAction="#filtrarEmManutencao" text="Em Manutenção" />
                 </items>
             </MenuButton>
         </HBox>
 
+        <!-- Botões de filtro e ação -->
+        <HBox alignment="CENTER_RIGHT" spacing="10" style="-fx-background-color: #E0E0E0;">
+            <Button onAction="#excluirVeiculoSelecionado" style="-fx-background-color: #B22222;" text="Excluir Veículo Selecionado" textFill="#e0e0e0" />
+            <Button onAction="#voltarParaTelaAdmin" text="Voltar" />
+        </HBox>
+
     </VBox>
+   <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="5.0" />
 
 </AnchorPane>

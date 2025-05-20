@@ -12,77 +12,64 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane hgap="8" minHeight="600" minWidth="800" prefHeight="800" prefWidth="1200" style="-fx-background-color: #E0E0E0;" vgap="8" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mz.co.cargo.Controller.AdminController">
+<GridPane hgap="8" minHeight="279.0" minWidth="578.0" prefHeight="527.0" prefWidth="773.0" style="-fx-background-color: #E0E0E0;" vgap="8" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mz.co.cargo.Controller.AdminController">
 
     <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="207" minWidth="10" prefWidth="125" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="944" minWidth="10" prefWidth="918" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="199" minWidth="10" prefWidth="127" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="944.0" minWidth="10.0" prefWidth="871.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="944.0" minWidth="10.0" prefWidth="14.0" />
     </columnConstraints>
 
     <rowConstraints>
-        <RowConstraints prefHeight="50" vgrow="SOMETIMES" />   <!-- 0 -->
-        <RowConstraints prefHeight="60" vgrow="SOMETIMES" />   <!-- 1 -->
-        <RowConstraints prefHeight="30" vgrow="SOMETIMES" />   <!-- 2 -->
-        <RowConstraints prefHeight="25" vgrow="SOMETIMES" />   <!-- 3 -->
-        <RowConstraints prefHeight="40" vgrow="SOMETIMES" />   <!-- 4 -->
-        <RowConstraints prefHeight="40" vgrow="SOMETIMES" />   <!-- 5 -->
-        <RowConstraints prefHeight="60" vgrow="SOMETIMES" />   <!-- 6 -->
-        <RowConstraints prefHeight="230" vgrow="SOMETIMES" />  <!-- 7: tabela + botoes aqui -->
-        <RowConstraints prefHeight="70" vgrow="SOMETIMES" />   <!-- 8 -->
-        <RowConstraints prefHeight="155" vgrow="SOMETIMES" />  <!-- 9 -->
+        <RowConstraints maxHeight="81.0" minHeight="24.0" prefHeight="52.0" vgrow="SOMETIMES" />   <!-- 0 -->
+        <RowConstraints maxHeight="149.0" minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />   <!-- 6 -->
+        <RowConstraints maxHeight="398.0" minHeight="253.0" prefHeight="398.0" vgrow="SOMETIMES" />  <!-- 9 -->
     </rowConstraints>
 
     <children>
         <!-- Logo -->
-        <Label text=" CarGO" textFill="#1e3a5f" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+        <Label text=" CarGO" textFill="#1e3a5f" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
             <font><Font name="System Bold Italic" size="36" /></font>
         </Label>
 
         <!-- Título -->
-        <Label text="Painel administrativo" textFill="#1e3a5f" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-            <font><Font size="52" /></font>
+        <Label text="Painel administrativo" textFill="#1e3a5f" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <font><Font size="36.0" /></font>
         </Label>
 
         <!-- Botão Sair -->
-        <Button fx:id="botaoSair" onAction="#voltarParaLogin" text="Sair" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="TOP">
+        <Button fx:id="botaoSair" onAction="#voltarParaLogin" prefHeight="39.0" prefWidth="170.0" text="Sair" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
             <font><Font size="18" /></font>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
         </Button>
 
-        <!-- Saudação -->
-        <Label fx:id="saudacaoLabel" text="" textFill="#1e3a5f" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-            <font><Font size="24" /></font>
-        </Label>
-
-        <!-- Email do Admin -->
-        <Label fx:id="emailLabel" text="" textFill="#1e3a5f" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-            <font><Font size="18" /></font>
-        </Label>
-
         <!-- Tabela de Aluguéis com botões à direita -->
-        <HBox spacing="20" GridPane.columnIndex="1" GridPane.rowIndex="7">
+        <HBox spacing="20" GridPane.rowIndex="2">
             <!-- Tabela -->
             <TableView fx:id="tabelaAlugueis" prefHeight="220" prefWidth="700">
                 <columns>
-                    <TableColumn fx:id="colunaCliente" text="Cliente" prefWidth="200" />
-                    <TableColumn fx:id="colunaVeiculo" text="Veículo" prefWidth="200" />
-                    <TableColumn fx:id="colunaInicio" text="Data Início" prefWidth="150" />
-                    <TableColumn fx:id="colunaFim" text="Data Fim" prefWidth="150" />
+                    <TableColumn fx:id="colunaCliente" prefWidth="132.0" text="Cliente" />
+                    <TableColumn fx:id="colunaVeiculo" prefWidth="129.0" text="Veículo" />
+                    <TableColumn fx:id="colunaInicio" minWidth="0.0" prefWidth="151.0" text="Data Início" />
+                    <TableColumn fx:id="colunaFim" prefWidth="158.0" text="Data Fim" />
                 </columns>
             </TableView>
 
             <!-- Botões à direita -->
-            <VBox spacing="15" alignment="TOP_CENTER">
-                <Button fx:id="gerenciarClientes" onAction="#abrirTeste" style="-fx-background-color: #1e3a5f;" text="Gerenciar Clientes" textFill="#e0e0e0">
+            <VBox alignment="TOP_CENTER" spacing="15">
+                <Button fx:id="gerenciarClientes" onAction="#abrirTeste" prefHeight="39.0" prefWidth="203.0" style="-fx-background-color: #1e3a5f;" text="Gerenciar Clientes" textFill="#e0e0e0">
+                    <font>
+                  <Font size="18" />
+               </font>
+                </Button>
+                <Button fx:id="cadastrarAdminButton" onAction="#abrirCadastroAdmin" prefHeight="32.0" prefWidth="309.0" style="-fx-background-color: #1e3a5f;" text="Cadastrar Admin" textFill="#e0e0e0">
                     <font><Font size="18" /></font>
                 </Button>
-                <Button fx:id="cadastrarAdminButton" onAction="#abrirCadastroAdmin" style="-fx-background-color: #1e3a5f;" text="Cadastrar Admin" textFill="#e0e0e0">
+                <Button fx:id="cadastrarVeiculosButton" onAction="#abrirCadastroVeiculo" prefHeight="32.0" prefWidth="309.0" style="-fx-background-color: #1e3a5f;" text="Cadastrar veículos" textFill="#e0e0e0">
                     <font><Font size="18" /></font>
                 </Button>
-                <Button fx:id="cadastrarVeiculosButton" onAction="#abrirCadastroVeiculo" style="-fx-background-color: #1e3a5f;" text="Cadastrar veículos" textFill="#e0e0e0">
-                    <font><Font size="18" /></font>
-                </Button>
-                <Button fx:id="gerenciarVeiculos" onAction="#abrirGerenciarVeiculos" style="-fx-background-color: #1e3a5f;" text="Gerenciar Veículos" textFill="#e0e0e0">
+                <Button fx:id="gerenciarVeiculos" onAction="#abrirGerenciarVeiculos" prefHeight="32.0" prefWidth="309.0" style="-fx-background-color: #1e3a5f;" text="Gerenciar Veículos" textFill="#e0e0e0">
                     <font><Font size="18" /></font>
                 </Button>
             </VBox>

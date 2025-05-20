@@ -5,66 +5,52 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<GridPane hgap="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" prefHeight="900.0" prefWidth="1122.0" style="-fx-background-color: #E0E0E0;" vgap="8.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mz.co.cargo.Controller.UserController">
-   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="207.0" minWidth="10.0" prefWidth="125.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="944.0" minWidth="10.0" prefWidth="918.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="127.0" />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="61.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="627.0" minHeight="0.0" prefHeight="82.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="627.0" minHeight="10.0" prefHeight="155.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="777.0" minHeight="10.0" prefHeight="508.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="698.0" minHeight="10.0" prefHeight="81.0" vgrow="SOMETIMES" />
-   </rowConstraints>
+<Pane prefHeight="647.0" prefWidth="923.0" style="-fx-background-color: #E0E0E0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mz.co.cargo.Controller.UserController">
    <children>
-      <Label prefHeight="70.0" prefWidth="135.0" text=" CarGO" textFill="#1e3a5f" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-         <font>
-            <Font name="System Bold Italic" size="36.0" />
-         </font>
-      </Label>
-      <Label text="Locação de Veículos" textFill="#1e3a5f" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-         <font>
-            <Font size="52.0" />
-         </font>
-      </Label>
-      <Button fx:id="botaoSair" mnemonicParsing="false" onAction="#voltarParaLogin" prefHeight="29.0" prefWidth="84.0" text="Sair" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+      <TableView fx:id="tabelaVeiculos" prefHeight="512.0" prefWidth="923.0">
+        <columns>
+          <TableColumn fx:id="colMarca" prefWidth="289.0" text="Marca" />
+            <TableColumn fx:id="colPrecoAluguel" prefWidth="338.0" text="Preço" />
+          <TableColumn fx:id="colModelo" prefWidth="295.0" text="Modelo" />
+        </columns>
+      </TableView>
+      <Label layoutX="14.0" layoutY="589.0" text="Pesquisar" textFill="#1e3a5f">
          <font>
             <Font size="18.0" />
          </font>
-      </Button>
-      <TextField fx:id="txtMarcaBusca" prefHeight="35.0" prefWidth="798.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      </Label>
+      <TextField fx:id="txtMarcaBusca" layoutX="96.0" layoutY="583.0" prefHeight="40.0" prefWidth="443.0">
          <font>
             <Font size="19.0" />
          </font>
       </TextField>
-      <Label text="Pesquisar" textFill="#1e3a5f" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
-         <font>
-            <Font size="29.0" />
-         </font>
-      </Label>
-      <Button mnemonicParsing="false" onAction="#buscarVeiculosPorMarca" text="Buscar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+      <Button fx:id="botaoSair" layoutX="821.0" layoutY="583.0" mnemonicParsing="false" onAction="#voltarParaLogin" prefHeight="29.0" prefWidth="84.0" style="-fx-background-color: #B22222;" text="Sair" textFill="#e0e0e0">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <TableView fx:id="tabelaVeiculos" prefHeight="512.0" prefWidth="923.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-        <columns>
-          <TableColumn fx:id="colMarca" prefWidth="250.0" text="Marca" />
-          <TableColumn fx:id="colModelo" prefWidth="394.0" text="Modelo" />
-            <TableColumn fx:id="colPrecoAluguel" prefWidth="277.0" text="Preço" />
-        </columns>
-      </TableView>
-      <Button onAction="#abrirTelaDetalhesVeiculo" mnemonicParsing="false" text="Ver detalhes" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+      <Label layoutY="504.0" prefHeight="70.0" prefWidth="135.0" text=" CarGO" textFill="#1e3a5f">
+         <font>
+            <Font name="System Bold Italic" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="336.0" layoutY="513.0" prefHeight="53.0" prefWidth="265.0" text="Locação de Veículos" textFill="#1e3a5f">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Button layoutX="548.0" layoutY="583.0" mnemonicParsing="false" onAction="#buscarVeiculosPorMarca" style="-fx-background-color: #1e3a5f;" text="Buscar" textFill="#e0e0e0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="770.0" layoutY="529.0" mnemonicParsing="false" onAction="#abrirTelaDetalhesVeiculo" prefHeight="25.0" prefWidth="135.0" style="-fx-background-color: #1e3a5f;" text="Ver Veículo" textFill="#e0e0e0">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
    </children>
-</GridPane>
+</Pane>
