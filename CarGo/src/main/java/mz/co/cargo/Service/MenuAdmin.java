@@ -63,6 +63,7 @@ public class MenuAdmin {
             System.out.println("8. Buscar Veiculos");
             System.out.println("9. Registrar Aluguel");
             System.out.println("10. Ver calendário de aluguéis");
+            System.out.println("12. Ver todos os alugueis ativos");
             System.out.println("11. Ver Histórico de Cliente");
 
 
@@ -96,6 +97,7 @@ public class MenuAdmin {
                 case 9 -> registrarAluguel();
                 case 10 -> verCalendario();
                 case 11 -> verHistoricoDeCliente();
+                case 12 -> exibirTodosAlugueis();
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida.");
             }
@@ -278,6 +280,13 @@ public class MenuAdmin {
             for (Aluguel a : lista) {
                 System.out.printf("• Placa: %s | De %s até %s\n", a.getPlaca(), a.getDataInicio(), a.getDataFim());
             }
+        }
+    }
+
+    public static void exibirTodosAlugueis(){
+        List<Aluguel> alugueisAtivos = AluguelService.listarTodos();
+        for (Aluguel a : alugueisAtivos) {
+            System.out.println("Placa: " + a.getPlaca() + ", Cliente: " + a.getEmailCliente());
         }
     }
 

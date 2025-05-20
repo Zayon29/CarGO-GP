@@ -137,6 +137,41 @@ public class AluguelRepository {
         }
     }
 
+    public static List<Aluguel> buscarAlugueisAtivos() {
+        List<Aluguel> lista = new ArrayList<>();
+        String sql = "SELECT * FROM aluguel ORDER BY data_inicio DESC";
+
+        try (Connection conn = AluguelDatabase.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                String placa = rs.getString("placa");
+
+                // Verifica o status diretamente pela placa do veículo
+                String status = VeiculoRepository.buscarStatusPorPlaca(placa);
+
+                if ("ALUGADO".equalsIgnoreCase(status)) {
+                    lista.add(new Aluguel(
+                            rs.getInt("id"),
+                            placa,
+                            rs.getString("data_inicio"),
+                            rs.getString("data_fim"),
+                            rs.getString("email_cliente")
+                    ));
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao buscar aluguéis ativos: " + e.getMessage());
+        }
+
+        return lista;
+    }
+
+
+
+
 
 
 

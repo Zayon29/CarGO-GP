@@ -1,24 +1,49 @@
 package mz.co.cargo.Controller;
 
 import java.io.IOException;
+import java.net.URL;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.ResourceBundle;
+
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import mz.co.cargo.Model.AdminUser;
-import javafx.scene.control.Label;
+import javafx.fxml.Initializable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.cell.PropertyValueFactory;
+import mz.co.cargo.Model.Aluguel;
+import mz.co.cargo.Service.AluguelService;
 
-public class AdminController {
+public class AdminController implements Initializable{
 
     @FXML
     private Label saudacaoLabel;
 
     @FXML
     private Label emailLabel;
+
+    @FXML
+    private TableView<Aluguel> tabelaAlugueis;
+
+    @FXML
+    private TableColumn<Aluguel, String> colunaCliente;
+
+    @FXML
+    private TableColumn<Aluguel, String> colunaVeiculo;
+
+    @FXML
+    private TableColumn<Aluguel, String> colunaInicio;
+    @FXML
+    private TableColumn<Aluguel, String> colunaFim;
 
 
 
@@ -129,6 +154,55 @@ public class AdminController {
             e.printStackTrace();
         }
     }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        carregarDadosExemplo();
+
+            tabelaAlugueis.setRowFactory(tv -> new TableRow<Aluguel>() {
+                @Override
+                protected void updateItem(Aluguel aluguel, boolean empty) {
+                    super.updateItem(aluguel, empty);
+                    if (aluguel == null || empty) {
+                        setStyle(""); // reseta estilo
+                    } else {
+                        // converter dataFim String para LocalDate
+                        LocalDate dataFim = LocalDate.parse(aluguel.getDataFim()); // seu formato deve ser ISO yyyy-MM-dd
+                        LocalDate hoje = LocalDate.now();
+
+                        if (dataFim.isBefore(hoje)) {
+                            // aluguel já passou da data fim, pinta vermelho
+                            setStyle("-fx-background-color: #ffcccc;");
+                        } else {
+                            setStyle(""); // estilo padrão
+                        }
+                    }
+                }
+            });
+        }
+
+
+    public void carregarDadosExemplo() {
+        List<Aluguel> alugueis = AluguelService.listarTodos();
+        ObservableList<Aluguel> observableAlugueis = FXCollections.observableArrayList(alugueis);
+        tabelaAlugueis.setItems(observableAlugueis);
+
+        colunaCliente.setCellValueFactory(aluguel ->
+                new SimpleStringProperty(aluguel.getValue().getEmailCliente())
+        );
+        colunaVeiculo.setCellValueFactory(aluguel ->
+                new SimpleStringProperty(aluguel.getValue().getPlaca())
+        );
+        colunaInicio.setCellValueFactory(aluguel ->
+                new SimpleStringProperty(aluguel.getValue().getDataInicio())
+        );
+        colunaFim.setCellValueFactory(aluguel ->
+                new SimpleStringProperty(aluguel.getValue().getDataFim())
+        );
+    }
+
+
 
 
 }

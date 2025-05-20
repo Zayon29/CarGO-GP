@@ -60,6 +60,11 @@ public class AluguelService {
         return AluguelRepository.buscarPorEmailCliente(email);
     }
 
+    public static List<Aluguel> listarTodos() {
+        return AluguelRepository.buscarAlugueisAtivos();
+    }
+
+
 
 }
 
