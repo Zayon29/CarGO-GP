@@ -15,6 +15,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import mz.co.cargo.Model.AdminUser;
+import mz.co.cargo.Model.ClienteUser;
 import mz.co.cargo.Model.Veiculo;
 import mz.co.cargo.Service.VeiculoService;
 
@@ -53,6 +55,12 @@ public class UserController {
     private TextField txtOrdemBusca;
 
     private ObservableList<Veiculo> listaDeVeiculos = FXCollections.observableArrayList();
+
+    private ClienteUser userLogado;
+
+    public void carregarInformacoes(ClienteUser user, ActionEvent event) {
+        this.userLogado = user;
+    }
 
     @FXML
     public void initialize() {

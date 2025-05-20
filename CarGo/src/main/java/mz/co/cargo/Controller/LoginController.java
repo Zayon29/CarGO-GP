@@ -1,5 +1,6 @@
 package mz.co.cargo.Controller;
 
+import mz.co.cargo.Model.ClienteUser;
 import mz.co.cargo.Service.AdminService;
 import mz.co.cargo.Model.AdminUser;
 import mz.co.cargo.Main;
@@ -14,6 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import mz.co.cargo.Service.ClienteService;
 
 import java.io.IOException;
 
@@ -29,16 +31,26 @@ public class LoginController {
     private void fazerLogin(ActionEvent event) {
         String email = campoUsuario.getText();
         String senha = campoSenha.getText();
-        AdminUser admin = AdminService.realizarLoginAdmin(email, senha);
 
+        AdminUser admin = AdminService.realizarLoginAdmin(email, senha);
         if (admin != null) {
+            campoUsuario.clear();
+            campoSenha.clear();
             carregarPaginaAdm(admin, event);
-        } else {
-            loginSucesso(false);
+            return;
+        }
+
+        ClienteUser cliente = ClienteService.realizarLoginCliente(email, senha);
+        if (cliente != null) {
+            campoUsuario.clear();
+            campoSenha.clear();
+            carregarPaginaCliente(cliente, event);
+            return;
         }
 
         campoUsuario.clear();
         campoSenha.clear();
+        loginSucesso(false);
     }
 
     private void loginSucesso(boolean sucesso) {
@@ -80,6 +92,32 @@ public class LoginController {
             return false;
         }
     }
+
+    private static boolean carregarPaginaCliente(ClienteUser cliente, ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("telaUser.fxml"));
+            Parent clientePage = loader.load();
+
+            UserController controller = loader.getController();
+            controller.carregarInformacoes(cliente, event);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(clientePage);
+            stage.setScene(scene);
+            stage.show();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Falha ao carregar a página do cliente");
+            alert.setContentText("Houve um erro ao tentar carregar a página do cliente.");
+            alert.showAndWait();
+            return false;
+        }
+    }
+
+
 
     @FXML
     private void abrirTelaCadastro(ActionEvent event) {
