@@ -57,5 +57,11 @@
             <Font size="18.0" />
          </font>
       </Button>
+      <Button layoutX="470.0" layoutY="529.0" mnemonicParsing="false" onAction="#abrirAlugueis"
+              prefHeight="25.0" prefWidth="135.0" style="-fx-background-color: #1e3a5f;" text="Nova Tela" textFill="#e0e0e0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </Pane>

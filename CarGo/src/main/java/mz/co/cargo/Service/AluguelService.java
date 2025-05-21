@@ -144,6 +144,15 @@ public class AluguelService {
         }
     }
 
+    public static List<Aluguel> listarAlugueisAtivos(String email) {
+        return AluguelRepository.buscarAlugueisAtivosPorEmail(email);
+    }
+
+    public static boolean removerAluguelAtivo(String placa, String email){
+        return AluguelRepository.removerAluguelAtivo(placa, email);
+    }
+
+
 
 
 

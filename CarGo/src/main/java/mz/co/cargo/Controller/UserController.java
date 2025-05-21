@@ -146,6 +146,25 @@ public class UserController {
         }
     }
 
+    @FXML
+    private void abrirAlugueis(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/mz/co/cargo/AlugueisCliente.fxml")); // substitua pelo nome correto
+            Parent root = loader.load();
+
+            AlugueisClienteController controller = loader.getController();
+             controller.carregarCliente(userLogado);
+
+            Stage stage = new Stage();
+            stage.setTitle("Nova Tela");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
 }

@@ -169,6 +169,60 @@ public class AluguelRepository {
         return lista;
     }
 
+    public static List<Aluguel> buscarAlugueisAtivosPorEmail(String email) {
+        List<Aluguel> lista = new ArrayList<>();
+        String sql = "SELECT * FROM aluguel WHERE email_cliente = ? ORDER BY data_inicio DESC";
+
+        try (Connection conn = AluguelDatabase.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                String placa = rs.getString("placa");
+
+                // Verifica se o veículo ainda está alugado
+                String status = VeiculoRepository.buscarStatusPorPlaca(placa);
+                if ("ALUGADO".equalsIgnoreCase(status)) {
+                    lista.add(new Aluguel(
+                            rs.getInt("id"),
+                            placa,
+                            rs.getString("data_inicio"),
+                            rs.getString("data_fim"),
+                            rs.getString("email_cliente")
+                    ));
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao buscar aluguéis ativos do cliente: " + e.getMessage());
+        }
+
+        return lista;
+    }
+
+    public static boolean removerAluguelAtivo(String placa, String email) {
+        String sql = "DELETE FROM aluguel WHERE placa = ? AND email_cliente = ? AND date(data_fim) >= date('now')";
+
+        try (Connection conn = AluguelDatabase.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, placa);
+            pstmt.setString(2, email);
+
+            int afetados = pstmt.executeUpdate();
+
+            return afetados > 0;
+
+        } catch (Exception e) {
+            System.out.println("Erro ao remover aluguel ativo por placa e email: " + e.getMessage());
+            return false;
+        }
+    }
+
+
+
 
 
 

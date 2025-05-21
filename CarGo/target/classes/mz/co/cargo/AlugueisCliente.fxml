@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="mz.co.cargo.Controller.AlugueisClienteController"
+      alignment="CENTER" style="-fx-padding: 20">
+
+    <Label text="Meus Aluguéis" style="-fx-font-size: 18px;" />
+
+    <TableView fx:id="tabelaAlugueis" prefHeight="300" prefWidth="600">
+        <columns>
+            <TableColumn fx:id="colVeiculo" text="Veículo" prefWidth="200"/>
+            <TableColumn fx:id="colDataInicio" text="Início" prefWidth="150"/>
+            <TableColumn fx:id="colDataFim" text="Fim" prefWidth="150"/>
+            <TableColumn fx:id="colStatus" text="Status" prefWidth="100"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10">
+        <Button text="Devolver Veículo" onAction="#devolverVeiculo" />
+        <Button text="Voltar" onAction="#voltar" />
+    </HBox>
+
+    <Label fx:id="mensagemLabel" style="-fx-text-fill: red"/>
+</VBox>
