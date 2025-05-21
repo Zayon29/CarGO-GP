@@ -1,6 +1,7 @@
 package mz.co.cargo.Service;
 
 import mz.co.cargo.Model.Aluguel;
+import mz.co.cargo.Model.Veiculo;
 import mz.co.cargo.Repository.AluguelRepository;
 import mz.co.cargo.Repository.ClienteRepository;
 import mz.co.cargo.Repository.VeiculoRepository;
@@ -42,7 +43,8 @@ public class AluguelService {
         Aluguel aluguel = new Aluguel(0, placa.toUpperCase(), dataInicio, dataFim, emailCliente);
         AluguelRepository.registrarAluguel(aluguel);
 
-        VeiculoRepository.alterarStatusVeiculo(placa.toUpperCase(), "ALUGADO");
+        VeiculoRepository.alterarStatusVeiculo(placa.toUpperCase(), "RESERVADO");
+        atualizarStatusDosVeiculos();
 
         return "Aluguel realizado com sucesso.";
     }
@@ -82,7 +84,7 @@ public class AluguelService {
         Aluguel aluguel = new Aluguel(0, placa.toUpperCase(), dataInicio, dataFim, emailCliente);
         AluguelRepository.registrarAluguel(aluguel);
 
-        VeiculoRepository.alterarStatusVeiculo(placa.toUpperCase(), "ALUGADO");
+        VeiculoRepository.alterarStatusVeiculo(placa.toUpperCase(), "RESERVADO");
 
         return true;
     }
@@ -103,6 +105,45 @@ public class AluguelService {
     public static List<Aluguel> listarTodos() {
         return AluguelRepository.buscarAlugueisAtivos();
     }
+
+    public static void atualizarStatusDosVeiculos() {
+        LocalDate hoje = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        List<Veiculo> todos = VeiculoRepository.buscarTodosVeiculos();
+
+        for (Veiculo veiculo : todos) {
+            String placa = veiculo.getPlaca();
+            List<Aluguel> alugueis = AluguelRepository.buscarPorPlaca(placa);
+
+            boolean alugadoHoje = false;
+            boolean reservadoFuturo = false;
+
+            for (Aluguel aluguel : alugueis) {
+                try {
+                    LocalDate inicio = LocalDate.parse(aluguel.getDataInicio(), formatter);
+                    LocalDate fim = LocalDate.parse(aluguel.getDataFim(), formatter);
+
+                    if (!hoje.isBefore(inicio) && !hoje.isAfter(fim)) {
+                        alugadoHoje = true;
+                        break;
+                    } else if (hoje.isBefore(inicio)) {
+                        reservadoFuturo = true;
+                    }
+                } catch (DateTimeParseException e) {
+                    System.out.println("Erro ao converter datas do aluguel: " + e.getMessage());
+                }
+            }
+
+            if (alugadoHoje) {
+                VeiculoRepository.alterarStatusVeiculo(placa, "ALUGADO");
+            } else if (reservadoFuturo) {
+                VeiculoRepository.alterarStatusVeiculo(placa, "RESERVADO");
+            } else {
+                VeiculoRepository.alterarStatusVeiculo(placa, "DISPONIVEL");
+            }
+        }
+    }
+
 
 
 

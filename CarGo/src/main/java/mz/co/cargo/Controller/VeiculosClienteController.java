@@ -51,9 +51,12 @@ public class VeiculosClienteController {
         anoLabel.setText(String.valueOf(veiculo.getAnoFabricacao()));
         statusLabel.setText(veiculo.getStatus());
 
-        if (!veiculo.getStatus().toLowerCase().contains("dispon")) {
+        String status = veiculo.getStatus().toLowerCase();
+
+        if (veiculo.getStatus().toLowerCase().contains("alugad") || veiculo.getStatus().toLowerCase().contains("indisp")  ) {
             botaoAlugar.setDisable(true);
         }
+
     }
 
     @FXML

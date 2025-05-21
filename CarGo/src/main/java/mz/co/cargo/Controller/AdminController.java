@@ -149,13 +149,22 @@ public class AdminController implements Initializable {
                 if (aluguel == null || empty) {
                     setStyle("");
                 } else {
-                    LocalDate dataFim = LocalDate.parse(aluguel.getDataFim());
-                    LocalDate hoje = LocalDate.now();
+                    try {
+                        String dataFimStr = aluguel.getDataFim();
+                        if (dataFimStr != null && !dataFimStr.isBlank()) {
+                            LocalDate dataFim = LocalDate.parse(dataFimStr);
+                            LocalDate hoje = LocalDate.now();
 
-                    if (dataFim.isBefore(hoje)) {
-                        setStyle("-fx-background-color: #ffcccc;");
-                    } else {
-                        setStyle("");
+                            if (dataFim.isBefore(hoje)) {
+                                setStyle("-fx-background-color: #ffcccc;");
+                            } else {
+                                setStyle("");
+                            }
+                        } else {
+                            setStyle("");
+                        }
+                    } catch (Exception e) {
+                        setStyle(""); // Em caso de erro de parsing, não aplicar cor
                     }
                 }
             }

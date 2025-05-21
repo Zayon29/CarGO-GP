@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import mz.co.cargo.Repository.DatabaseInitializer;
+import mz.co.cargo.Service.AluguelService;
 
 import java.io.IOException;
 
@@ -24,6 +25,7 @@ public class Main extends Application {
 
         //Aq é pra iniciar o banco de dados alek
         DatabaseInitializer.initializeAll();
+        AluguelService.atualizarStatusDosVeiculos();
 
         stage.show();
     }
