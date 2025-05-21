@@ -68,6 +68,7 @@ public class MenuCliente {
             System.out.println("3. Alugar carro");
             System.out.println("4. Ver meus aluguéis ativos");
             System.out.println("5. Devolver um carro alugado");
+            System.out.println("6. Editar dados do cliente");
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
 
@@ -85,7 +86,7 @@ public class MenuCliente {
                 case 3 -> realizarAluguelCliente(cliente, scanner);
                 case 4 -> verHistoricoCliente(cliente);
                 case 5 -> devolverCarroAlugado(cliente);
-                case 6 -> AluguelService.limparAlugueis(cliente.getEmail());
+                case 6 -> editarDadosCliente(cliente);
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida.");
             }
@@ -262,6 +263,38 @@ public class MenuCliente {
 
         System.out.println("Veículo devolvido com sucesso!");
     }
+
+    public static void editarDadosCliente(ClienteUser cliente) {
+        System.out.println("\n=== EDITAR DADOS DO CLIENTE ===");
+
+        System.out.print("Novo nome (atual: " + cliente.getNome() + "): ");
+        String novoNome = scanner.nextLine();
+        if (novoNome.isEmpty()) novoNome = cliente.getNome();
+
+        System.out.print("Novo email (atual: " + cliente.getEmail() + "): ");
+        String novoEmail = scanner.nextLine();
+        if (novoEmail.isEmpty()) novoEmail = cliente.getEmail();
+
+        System.out.print("Nova senha (deixe em branco para manter a atual): ");
+        String novaSenha = scanner.nextLine();
+        if (novaSenha.isEmpty()) novaSenha = cliente.getSenha();
+
+        ClienteUser atualizado = new ClienteUser(novoNome, novoEmail, novaSenha);
+        String emailAntigo = cliente.getEmail();
+
+        boolean sucesso = ClienteService.editarCliente(emailAntigo, atualizado);
+        if (sucesso) {
+            System.out.println("Dados atualizados com sucesso!");
+            // Atualiza o objeto local
+            cliente.setNome(novoNome);
+            cliente.setEmail(novoEmail);
+            cliente.setSenha(novaSenha);
+        } else {
+            System.out.println("Erro ao atualizar os dados.");
+        }
+    }
+
+
 
 
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mz.co.cargo.Controller.EditarClienteController">
+    <children>
+        <VBox alignment="CENTER" spacing="15.0" layoutX="50.0" layoutY="30.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+            <Label text="Editar Dados do Cliente" style="-fx-font-size: 24px; -fx-text-fill: #1e3a5f;" />
+
+            <TextField fx:id="nomeField" promptText="Nome completo" />
+            <TextField fx:id="emailField" promptText="Email" />
+            <PasswordField fx:id="senhaField" promptText="Nova senha" />
+
+            <Label fx:id="mensagemLabel" textFill="red" />
+
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Salvar" onAction="#salvarAlteracoes" style="-fx-background-color: #1e3a5f;" textFill="white" />
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>

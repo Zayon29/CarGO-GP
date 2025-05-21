@@ -127,4 +127,25 @@ public class UserController {
     private void buscarVeiculosPorMarca() {
 
     }
+
+    @FXML
+    private void abrirTelaEditarCliente() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/mz/co/cargo/EditarCliente.fxml"));
+            Parent root = loader.load();
+
+            EditarClienteController controller = loader.getController();
+            controller.setCliente(userLogado);
+
+            Stage stage = new Stage();
+            stage.setTitle("Editar Perfil");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 }

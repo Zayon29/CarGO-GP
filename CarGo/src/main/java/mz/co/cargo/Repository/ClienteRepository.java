@@ -143,6 +143,73 @@ public class ClienteRepository {
         }
     }
 
+    public static boolean editarCliente(String emailAntigo, ClienteUser clienteAtualizado) {
+        String sqlUpdateCliente = "UPDATE cliente SET nome = ?, email = ?, senha = ? WHERE email = ?";
+        String sqlUpdateAluguel = "UPDATE aluguel SET email_cliente = ? WHERE email_cliente = ?";
+
+        Connection connCliente = null;
+        Connection connAluguel = null;
+
+        try {
+            // Conexões independentes
+            connCliente = ClienteDatabase.connect();
+            connAluguel = AluguelDatabase.connect();
+
+            // Auto-commit deve ser falso para controle transacional
+            connCliente.setAutoCommit(false);
+            connAluguel.setAutoCommit(false);
+
+            // Atualizar dados do cliente
+            try (PreparedStatement pstmtCliente = connCliente.prepareStatement(sqlUpdateCliente)) {
+                pstmtCliente.setString(1, clienteAtualizado.getNome());
+                pstmtCliente.setString(2, clienteAtualizado.getEmail());
+                pstmtCliente.setString(3, clienteAtualizado.getSenha());
+                pstmtCliente.setString(4, emailAntigo);
+                pstmtCliente.executeUpdate();
+                connCliente.commit();
+            }
+
+            // Atualizar email nos alugueis, se mudou
+            if (!emailAntigo.equals(clienteAtualizado.getEmail())) {
+                try (PreparedStatement pstmtAluguel = connAluguel.prepareStatement(sqlUpdateAluguel)) {
+                    pstmtAluguel.setString(1, clienteAtualizado.getEmail());
+                    pstmtAluguel.setString(2, emailAntigo);
+                    pstmtAluguel.executeUpdate();
+                    connAluguel.commit();
+
+                }
+            }
+
+            // Commit nas duas conexões
+
+
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao editar cliente: " + e.getMessage());
+
+            try {
+                if (connCliente != null) connCliente.rollback();
+                if (connAluguel != null) connAluguel.rollback();
+            } catch (SQLException ex) {
+                System.out.println("Erro no rollback: " + ex.getMessage());
+            }
+
+            return false;
+        } finally {
+            try {
+                if (connCliente != null) connCliente.setAutoCommit(true);
+                if (connAluguel != null) connAluguel.setAutoCommit(true);
+                if (connCliente != null) connCliente.close();
+                if (connAluguel != null) connAluguel.close();
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar conexões: " + e.getMessage());
+            }
+        }
+    }
+
+
+
 
 
 
