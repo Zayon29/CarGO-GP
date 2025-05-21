@@ -96,8 +96,12 @@ public class UserController {
 
         if (veiculoSelecionado != null) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/mz/co/cargo/telaVeiculo.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/mz/co/cargo/VeiculosCliente.fxml"));
                 Parent root = loader.load();
+
+                // Obtém o controller e passa os dados
+                VeiculosClienteController controller = loader.getController();
+                controller.carregarInformacoes(veiculoSelecionado, userLogado);
 
                 Stage stage = new Stage();
                 stage.setTitle("Detalhes do Veículo");
@@ -116,6 +120,7 @@ public class UserController {
             alert.showAndWait();
         }
     }
+
 
 
     @FXML

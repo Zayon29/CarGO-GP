@@ -19,17 +19,10 @@ import mz.co.cargo.Model.AdminUser;
 import javafx.fxml.Initializable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.cell.PropertyValueFactory;
 import mz.co.cargo.Model.Aluguel;
 import mz.co.cargo.Service.AluguelService;
 
-public class AdminController implements Initializable{
-
-    @FXML
-    private Label saudacaoLabel;
-
-    @FXML
-    private Label emailLabel;
+public class AdminController implements Initializable {
 
     @FXML
     private TableView<Aluguel> tabelaAlugueis;
@@ -42,24 +35,21 @@ public class AdminController implements Initializable{
 
     @FXML
     private TableColumn<Aluguel, String> colunaInicio;
+
     @FXML
     private TableColumn<Aluguel, String> colunaFim;
-
-
 
     private AdminUser adminLogado;
 
     public void carregarInformacoes(AdminUser admin, ActionEvent event) {
         this.adminLogado = admin;
 
-        emailLabel.setText("Email: " + admin.getEmail());
-        saudacaoLabel.setText("Olá, Adm " + admin.getNome() + "!");
+        // Removido uso de emailLabel e saudacaoLabel pois não existem no FXML
     }
 
     @FXML
     private void abrirCadastroVeiculo(ActionEvent event) {
         try {
-            // Carregar o FXML de cadastro de veículos
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/mz/co/cargo/cadastroVeiculo.fxml"));
             Parent cadastroRoot = loader.load();
 
@@ -68,15 +58,12 @@ public class AdminController implements Initializable{
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            // Troca a cena
             stage.setScene(new Scene(cadastroRoot));
             stage.setTitle("Cadastrar Veículo - CarGo");
         } catch (IOException e) {
             e.printStackTrace();
-            // Alerta de erro, se necessário
         }
     }
-
 
     @FXML
     private void abrirCadastroAdmin(ActionEvent event) {
@@ -96,7 +83,6 @@ public class AdminController implements Initializable{
             new Alert(Alert.AlertType.ERROR, "Não foi possível abrir o cadastro de admin.").showAndWait();
         }
     }
-
 
     @FXML
     private void abrirTeste(ActionEvent event) {
@@ -136,9 +122,6 @@ public class AdminController implements Initializable{
         }
     }
 
-
-
-
     @FXML
     private void voltarParaLogin(ActionEvent event) {
         try {
@@ -155,33 +138,29 @@ public class AdminController implements Initializable{
         }
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         carregarDadosExemplo();
 
-            tabelaAlugueis.setRowFactory(tv -> new TableRow<Aluguel>() {
-                @Override
-                protected void updateItem(Aluguel aluguel, boolean empty) {
-                    super.updateItem(aluguel, empty);
-                    if (aluguel == null || empty) {
-                        setStyle(""); // reseta estilo
-                    } else {
-                        // converter dataFim String para LocalDate
-                        LocalDate dataFim = LocalDate.parse(aluguel.getDataFim()); // seu formato deve ser ISO yyyy-MM-dd
-                        LocalDate hoje = LocalDate.now();
+        tabelaAlugueis.setRowFactory(tv -> new TableRow<Aluguel>() {
+            @Override
+            protected void updateItem(Aluguel aluguel, boolean empty) {
+                super.updateItem(aluguel, empty);
+                if (aluguel == null || empty) {
+                    setStyle("");
+                } else {
+                    LocalDate dataFim = LocalDate.parse(aluguel.getDataFim());
+                    LocalDate hoje = LocalDate.now();
 
-                        if (dataFim.isBefore(hoje)) {
-                            // aluguel já passou da data fim, pinta vermelho
-                            setStyle("-fx-background-color: #ffcccc;");
-                        } else {
-                            setStyle(""); // estilo padrão
-                        }
+                    if (dataFim.isBefore(hoje)) {
+                        setStyle("-fx-background-color: #ffcccc;");
+                    } else {
+                        setStyle("");
                     }
                 }
-            });
-        }
-
+            }
+        });
+    }
 
     public void carregarDadosExemplo() {
         List<Aluguel> alugueis = AluguelService.listarTodos();
@@ -201,8 +180,4 @@ public class AdminController implements Initializable{
                 new SimpleStringProperty(aluguel.getValue().getDataFim())
         );
     }
-
-
-
-
 }

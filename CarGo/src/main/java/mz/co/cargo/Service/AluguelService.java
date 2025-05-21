@@ -47,6 +47,46 @@ public class AluguelService {
         return "Aluguel realizado com sucesso.";
     }
 
+    public static boolean realizarAluguelBoolean(String placa, String dataInicio, String dataFim, String emailCliente) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate inicio, fim;
+
+        if (!ClienteRepository.emailExiste(emailCliente)) {
+            System.out.println("Erro: Esse e-mail de cliente não está cadastrado no sistema.");
+            return false;
+        }
+
+        if (!VeiculoRepository.existePlaca(placa)) {
+            System.out.println("Erro: Nenhum veículo encontrado com a placa: " + placa);
+            return false;
+        }
+
+        try {
+            inicio = LocalDate.parse(dataInicio, formatter);
+            fim = LocalDate.parse(dataFim, formatter);
+        } catch (DateTimeParseException e) {
+            System.out.println("Erro: Datas em formato inválido. Use o formato YYYY-MM-DD.");
+            return false;
+        }
+
+        if (!fim.isAfter(inicio)) {
+            System.out.println("Erro: A data de fim deve ser posterior à data de início.");
+            return false;
+        }
+
+        if (AluguelRepository.haConflito(placa, dataInicio, dataFim)) {
+            System.out.println("Erro: O veículo já está alugado nesse período.");
+            return false;
+        }
+
+        Aluguel aluguel = new Aluguel(0, placa.toUpperCase(), dataInicio, dataFim, emailCliente);
+        AluguelRepository.registrarAluguel(aluguel);
+
+        VeiculoRepository.alterarStatusVeiculo(placa.toUpperCase(), "ALUGADO");
+
+        return true;
+    }
+
     public static String limparAlugueis(String email){
         return AluguelRepository.limparAlugueisPorEmailCliente(email);
     }

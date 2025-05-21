@@ -24,9 +24,10 @@ public class AluguelDatabase {
                     "placa TEXT NOT NULL, " +
                     "data_inicio TEXT NOT NULL, " +
                     "data_fim TEXT NOT NULL, " +
+                    "email_cliente TEXT NOT NULL, " +  // <== inclui a coluna aqui
                     "FOREIGN KEY (placa) REFERENCES veiculo(placa)" +
                     ");";
-            stmt.execute("ALTER TABLE aluguel ADD COLUMN email_cliente TEXT");
+            stmt.execute(aluguelSql);
             System.out.println("Tabela 'Aluguel' pronta!");
         } catch (Exception e) {
             System.out.println("Erro ao criar tabela Alguel: " + e.getMessage());
