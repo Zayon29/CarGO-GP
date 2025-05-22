@@ -1,78 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane hgap="8" minHeight="279.0" minWidth="578.0" prefHeight="527.0" prefWidth="773.0" style="-fx-background-color: #E0E0E0;" vgap="8" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mz.co.cargo.Controller.AdminController">
 
-    <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="944.0" minWidth="10.0" prefWidth="871.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="944.0" minWidth="10.0" prefWidth="14.0" />
-    </columnConstraints>
+<Pane prefHeight="444.0" prefWidth="834.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mz.co.cargo.Controller.AdminController">
+   <children>
 
-    <rowConstraints>
-        <RowConstraints maxHeight="81.0" minHeight="24.0" prefHeight="52.0" vgrow="SOMETIMES" />   <!-- 0 -->
-        <RowConstraints maxHeight="149.0" minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />   <!-- 6 -->
-        <RowConstraints maxHeight="398.0" minHeight="253.0" prefHeight="398.0" vgrow="SOMETIMES" />  <!-- 9 -->
-    </rowConstraints>
+              <!-- Tabela de Aluguéis com botões à direita -->
+        <HBox spacing="20">
 
-    <children>
-        <!-- Logo -->
-        <Label text=" CarGO" textFill="#1e3a5f" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
-            <font><Font name="System Bold Italic" size="36" /></font>
-        </Label>
-
-        <!-- Título -->
-        <Label text="Painel administrativo" textFill="#1e3a5f" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-            <font><Font size="36.0" /></font>
-        </Label>
-
-        <!-- Botão Sair -->
-        <Button fx:id="botaoSair" onAction="#voltarParaLogin" prefHeight="39.0" prefWidth="170.0" text="Sair" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
-            <font><Font size="18" /></font>
-         <GridPane.margin>
-            <Insets />
-         </GridPane.margin>
-        </Button>
-
-        <!-- Tabela de Aluguéis com botões à direita -->
-        <HBox spacing="20" GridPane.rowIndex="2">
-            <!-- Tabela -->
-            <TableView fx:id="tabelaAlugueis" prefHeight="220" prefWidth="700">
-                <columns>
-                    <TableColumn fx:id="colunaCliente" prefWidth="132.0" text="Cliente" />
-                    <TableColumn fx:id="colunaVeiculo" prefWidth="129.0" text="Veículo" />
-                    <TableColumn fx:id="colunaInicio" minWidth="0.0" prefWidth="151.0" text="Data Início" />
-                    <TableColumn fx:id="colunaFim" prefWidth="158.0" text="Data Fim" />
-                </columns>
-            </TableView>
-
-            <!-- Botões à direita -->
+                  <!-- Botões à direita -->
             <VBox alignment="TOP_CENTER" spacing="15">
-                <Button fx:id="gerenciarClientes" onAction="#abrirTeste" prefHeight="39.0" prefWidth="203.0" style="-fx-background-color: #1e3a5f;" text="Gerenciar Clientes" textFill="#e0e0e0">
-                    <font>
-                  <Font size="18" />
+              <!-- Logo -->
+              <Label text=" CarGO" textFill="#1e3a5f">
+                  <font>
+                  <Font name="System Bold Italic" size="36" />
                </font>
-                </Button>
-                <Button fx:id="cadastrarAdminButton" onAction="#abrirCadastroAdmin" prefHeight="32.0" prefWidth="309.0" style="-fx-background-color: #1e3a5f;" text="Cadastrar Admin" textFill="#e0e0e0">
-                    <font><Font size="18" /></font>
-                </Button>
-                <Button fx:id="cadastrarVeiculosButton" onAction="#abrirCadastroVeiculo" prefHeight="32.0" prefWidth="309.0" style="-fx-background-color: #1e3a5f;" text="Cadastrar veículos" textFill="#e0e0e0">
-                    <font><Font size="18" /></font>
-                </Button>
-                <Button fx:id="gerenciarVeiculos" onAction="#abrirGerenciarVeiculos" prefHeight="32.0" prefWidth="309.0" style="-fx-background-color: #1e3a5f;" text="Gerenciar Veículos" textFill="#e0e0e0">
-                    <font><Font size="18" /></font>
-                </Button>
+              </Label>
             </VBox>
         </HBox>
-    </children>
-</GridPane>
+
+              <!-- Título -->
+        <Label layoutX="227.0" layoutY="13.0" text="Painel administrativo" textFill="#1e3a5f">
+            <font>
+            <Font size="36.0" />
+         </font>
+        </Label>
+
+              <!-- Botão Sair -->
+        <Button fx:id="botaoSair" layoutX="650.0" layoutY="20.0" onAction="#voltarParaLogin" prefHeight="39.0" prefWidth="170.0" text="Sair">
+            <font>
+            <Font size="18" />
+         </font>
+        </Button>
+         <!-- Tabela -->
+         <TableView fx:id="tabelaAlugueis" layoutY="77.0" prefHeight="297.0" prefWidth="834.0">
+             <columns>
+                 <TableColumn fx:id="colunaCliente" prefWidth="132.0" text="Cliente" />
+                 <TableColumn fx:id="colunaVeiculo" prefWidth="129.0" text="Veículo" />
+                 <TableColumn fx:id="colunaFim" prefWidth="158.0" text="Data Fim" />
+                 <TableColumn fx:id="colunaInicio" minWidth="0.0" prefWidth="151.0" text="Data Início" />
+             </columns>
+         </TableView>
+          <Button fx:id="cadastrarAdminButton" layoutX="627.0" layoutY="389.0" onAction="#abrirCadastroAdmin" prefHeight="39.0" prefWidth="193.0" style="-fx-background-color: #1e3a5f;" text="Cadastrar Admin" textFill="#e0e0e0">
+              <font>
+            <Font size="18" />
+         </font>
+          </Button>
+          <Button fx:id="cadastrarVeiculosButton" layoutX="217.0" layoutY="389.0" onAction="#abrirCadastroVeiculo" prefHeight="39.0" prefWidth="193.0" style="-fx-background-color: #1e3a5f;" text="Cadastrar veículos" textFill="#e0e0e0">
+              <font>
+            <Font size="18" />
+         </font>
+          </Button>
+          <Button fx:id="gerenciarVeiculos" layoutX="14.0" layoutY="389.0" onAction="#abrirGerenciarVeiculos" prefHeight="39.0" prefWidth="193.0" style="-fx-background-color: #1e3a5f;" text="Gerenciar Veículos" textFill="#e0e0e0">
+              <font>
+            <Font size="18" />
+         </font>
+          </Button>
+          <Button fx:id="gerenciarClientes" layoutX="423.0" layoutY="389.0" onAction="#abrirTeste" prefHeight="39.0" prefWidth="193.0" style="-fx-background-color: #1e3a5f;" text="Gerenciar Clientes" textFill="#e0e0e0">
+              <font>
+            <Font size="18" />
+         </font>
+          </Button>
+   </children>
+</Pane>
