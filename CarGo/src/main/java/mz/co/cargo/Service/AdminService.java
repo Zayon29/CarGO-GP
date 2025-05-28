@@ -2,6 +2,8 @@ package mz.co.cargo.Service;
 
 import mz.co.cargo.Model.AdminUser;
 import mz.co.cargo.Repository.AdminRepository;
+import mz.co.cargo.Security.PasswordHash;
+
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -9,7 +11,7 @@ public class AdminService {
 
     public static String cadastrarAdmin(AdminUser admin) {
 
-        // Validação dos critérios de aceitação
+        // Validação
         if (admin.getNome() == null || admin.getNome().trim().isEmpty()) {
             return "Erro: O nome do administrador não pode ser vazio.";
         }
@@ -26,7 +28,6 @@ public class AdminService {
             return "Erro: O email fornecido não é válido.";
         }
 
-        // Verificar se o email já está cadastrado no banco
         if (AdminRepository.existeEmail(admin.getEmail())) {
             return "Erro: O email já está cadastrado.";
         }
@@ -34,18 +35,23 @@ public class AdminService {
         if (admin.getSenha() == null || admin.getSenha().length() < 6) {
             return "Erro: A senha deve ter pelo menos 6 caracteres.";
         }
+        String senhaHasheada = PasswordHash.gerarHash(admin.getSenha());
+        admin.setSenha(senhaHasheada);
 
-        // Cadastrar o administrador no banco
         AdminRepository.adcionarAdmin(admin);
         return "Administrador cadastrado com sucesso!";
     }
 
-    public static AdminUser realizarLoginAdmin(String email, String senha){
-        return AdminRepository.loginAdmin(email, senha);
-    }
+    public static AdminUser realizarLoginAdmin(String email, String senhaDigitada) {
+        AdminUser admin = AdminRepository.buscarPorEmail(email);
 
-    public static List<AdminUser> buscarTodosAdmins(){
+        if (admin == null) return null;
+
+        boolean senhaCorreta = PasswordHash.validarSenha(senhaDigitada, admin.getSenha());
+
+        return senhaCorreta ? admin : null;
+    }
+    public static List<AdminUser> buscarTodosAdmins() {
         return AdminRepository.buscarTodosAdmins();
     }
-
 }

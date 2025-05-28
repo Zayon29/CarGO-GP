@@ -208,6 +208,31 @@ public class ClienteRepository {
         }
     }
 
+    public static ClienteUser buscarPorEmail(String email) {
+        String sql = "SELECT * FROM cliente WHERE email = ?";
+
+        try (Connection conn = ClienteDatabase.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return new ClienteUser(
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("senha") // hash completo
+                );
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao buscar cliente por e-mail: " + e.getMessage());
+        }
+
+        return null; // cliente não encontrado
+    }
+
+
 
 
 
