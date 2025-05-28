@@ -16,6 +16,7 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -64,11 +65,17 @@ public class CadastroVeiculoController {
             String combustivel = combustivelTextField.getText();
 
             String caminhoImagemStr = caminhoTextField.getText();
-            List<String> imagens = Arrays.asList(caminhoImagemStr.split("\\s*,\\s*"));
+            List<String> caminhos = Arrays.asList(caminhoImagemStr.split("\\s*,\\s*"));
+            List<String> nomesImagens = new ArrayList<>();
+
+            for (String caminho : caminhos) {
+                File arquivo = new File(caminho);
+                nomesImagens.add(arquivo.getName()); // Só o nome da imagem
+            }
 
             Veiculo veiculo = new Veiculo(
                     marca, modelo, anoFabricacao, placa, chassi,
-                    preco, status, km, combustivel, imagens
+                    preco, status, km, combustivel, nomesImagens
             );
 
             String resultado = VeiculoService.cadastrarVeiculo(veiculo);

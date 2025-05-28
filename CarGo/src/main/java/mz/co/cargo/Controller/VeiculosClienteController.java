@@ -10,7 +10,9 @@ import mz.co.cargo.Model.ClienteUser;
 import mz.co.cargo.Service.AluguelService;
 import mz.co.cargo.Model.ClienteUser;
 import javafx.scene.control.DatePicker;
-
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import java.io.File;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -26,6 +28,8 @@ public class VeiculosClienteController {
     private Label placaLabel;
     @FXML
     private Label anoLabel;
+    @FXML
+    private ImageView imagemVeiculo;
     @FXML
     private Label statusLabel;
     @FXML
@@ -57,6 +61,18 @@ public class VeiculosClienteController {
             botaoAlugar.setDisable(true);
         }
 
+        if (veiculo.getImagens() != null && !veiculo.getImagens().isEmpty()) {
+            String nomeImagem = veiculo.getImagens().get(0); // Ex: "2015_ferrari_488_gtb-wide.jpg"
+            String caminhoRelativo = "/images/" + nomeImagem;
+
+            try {
+                Image imagem = new Image(getClass().getResource(caminhoRelativo).toExternalForm());
+                imagemVeiculo.setImage(imagem);
+            } catch (Exception e) {
+                System.out.println("Erro ao carregar imagem: " + caminhoRelativo);
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
