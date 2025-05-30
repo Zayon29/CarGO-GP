@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
@@ -8,6 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="565.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mz.co.cargo.Controller.GerenciarVeiculosController">
 
@@ -30,8 +32,20 @@
 
         <!-- Botões de ação -->
         <HBox alignment="CENTER_RIGHT" spacing="10">
-            <Button onAction="#abrirTelaVeiculo" style="-fx-background-color: #1e3a5f;" text="Ver Veiculo" textFill="#e0e0e0" />
-            <Button onAction="#atualizarTabela" style="-fx-background-color: #1e3a5f;" text="Atualizar" textFill="#e0e0e0" />
+            <Button onAction="#abrirTelaVeiculo" style="-fx-background-color: #1e3a5f;" text="Ver Veiculo" textFill="#e0e0e0">
+            <font>
+               <Font size="14.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Button>
+            <Button onAction="#atualizarTabela" style="-fx-background-color: #1e3a5f;" text="Atualizar" textFill="#e0e0e0">
+            <font>
+               <Font size="14.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Button>
 
             <MenuButton fx:id="menuFiltroStatus" style="-fx-background-color: #1e3a5f;" text="Filtrar por Status" textFill="#e0e0e0">
                 <items>
@@ -40,13 +54,31 @@
                     <MenuItem onAction="#filtrarAlugado" text="Alugado" />
                     <MenuItem onAction="#filtrarEmManutencao" text="Em Manutenção" />
                 </items>
+            <font>
+               <Font size="14.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
             </MenuButton>
         </HBox>
 
         <!-- Botões de filtro e ação -->
         <HBox alignment="CENTER_RIGHT" spacing="10" style="-fx-background-color: #E0E0E0;">
-            <Button onAction="#excluirVeiculoSelecionado" style="-fx-background-color: #B22222;" text="Excluir Veículo Selecionado" textFill="#e0e0e0" />
-            <Button onAction="#voltarParaTelaAdmin" text="Voltar" />
+            <Button onAction="#excluirVeiculoSelecionado" style="-fx-background-color: #B22222;" text="Excluir Veículo Selecionado" textFill="#e0e0e0">
+            <font>
+               <Font size="14.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Button>
+            <Button onAction="#voltarParaTelaAdmin" text="Voltar">
+            <font>
+               <Font size="14.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Button>
         </HBox>
 
     </VBox>

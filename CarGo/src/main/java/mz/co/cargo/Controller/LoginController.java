@@ -27,6 +27,8 @@ public class LoginController {
     @FXML
     private PasswordField campoSenha;
 
+
+
     @FXML
     private void fazerLogin(ActionEvent event) {
         String email = campoUsuario.getText();
