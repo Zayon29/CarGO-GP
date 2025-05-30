@@ -222,6 +222,43 @@ public class AluguelRepository {
     }
 
 
+    public static String limparTodosAlugueis() {
+        String sqlDelete = "DELETE FROM aluguel";
+
+        try (Connection conn = AluguelDatabase.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sqlDelete)) {
+
+            // Começar transação
+            conn.setAutoCommit(false);
+
+            try {
+                // Opcional: Atualizar todos os veículos para DISPONIVEL
+                List<Aluguel> alugueis = buscarAlugueisAtivos();
+                for (Aluguel aluguel : alugueis) {
+                    VeiculoRepository.alterarStatusVeiculo(aluguel.getPlaca(), "DISPONIVEL");
+                }
+
+                // Executar a exclusão
+                int afetados = pstmt.executeUpdate();
+
+                conn.commit(); // Confirmar transação
+
+                return afetados + " aluguéis removidos com sucesso.";
+
+            } catch (Exception e) {
+                conn.rollback(); // Desfazer alterações em caso de erro
+                System.out.println("Erro ao limpar todos os aluguéis: " + e.getMessage());
+                return "Erro ao limpar todos os aluguéis.";
+            } finally {
+                conn.setAutoCommit(true);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro na conexão com o banco: " + e.getMessage());
+            return "Erro na conexão com o banco.";
+        }
+    }
+
 
 
 

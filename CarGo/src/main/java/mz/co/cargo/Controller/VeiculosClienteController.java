@@ -2,19 +2,17 @@ package mz.co.cargo.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import mz.co.cargo.Model.Veiculo;
 import mz.co.cargo.Model.ClienteUser;
 import mz.co.cargo.Service.AluguelService;
-import mz.co.cargo.Model.ClienteUser;
 import javafx.scene.control.DatePicker;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import java.io.File;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 import java.time.LocalDate;
 
@@ -98,14 +96,22 @@ public class VeiculosClienteController {
         String dataInicioStr = dataInicio.toString();
         String dataFimStr = dataFim.toString();
 
-        System.out.println(AluguelService.realizarAluguel(
+        String resultado = AluguelService.realizarAluguel(
                 veiculoSelecionado.getPlaca(),
                 dataInicioStr,
                 dataFimStr,
                 clienteLogado.getEmail()
-        ));
+        );
 
+        Alert sucessoAlert = new Alert(Alert.AlertType.INFORMATION);
+        sucessoAlert.setHeaderText(resultado);
+        sucessoAlert.showAndWait();
+
+        // Fechar a janela atual
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
     }
+
 
 
 

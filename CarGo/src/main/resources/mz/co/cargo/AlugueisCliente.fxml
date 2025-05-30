@@ -21,7 +21,6 @@
 
     <HBox spacing="10">
         <Button text="Devolver Veículo" onAction="#devolverVeiculo" />
-        <Button text="Voltar" onAction="#voltar" />
     </HBox>
 
     <Label fx:id="mensagemLabel" style="-fx-text-fill: red"/>

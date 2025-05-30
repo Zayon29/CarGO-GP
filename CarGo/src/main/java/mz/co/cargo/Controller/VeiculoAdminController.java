@@ -8,10 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import mz.co.cargo.Model.AdminUser;
 import mz.co.cargo.Model.Manutencao;
@@ -20,7 +17,8 @@ import mz.co.cargo.Service.VeiculoService;
 import mz.co.cargo.Service.ManutencaoService;
 
 import java.io.IOException;
-import javafx.scene.control.ComboBox;
+import java.util.Optional;
+
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 
@@ -60,6 +58,24 @@ public class VeiculoAdminController {
 
         ObservableList<String> opcoesStatus = FXCollections.observableArrayList("Disponível", "Em Manutenção");
         statusComboBox.setItems(opcoesStatus);
+
+        statusComboBox.valueProperty().addListener((obs, oldStatus, newStatus) -> {
+            if ("Em Manutenção".equals(newStatus) && !"Em Manutenção".equals(oldStatus)) {
+                Optional<String> motivo = solicitarMotivoManutencao();
+                if (motivo.isPresent() && !motivo.get().trim().isEmpty()) {
+                    Manutencao manut = new Manutencao(
+                            veiculoSelecionado.getPlaca(),
+                            java.time.LocalDate.now().toString(),
+                            motivo.get()
+                    );
+                    ManutencaoService.registrarManutencao(manut);
+                    carregarHistorico(veiculoSelecionado);
+                } else {
+                    statusComboBox.setValue("Status alterado para manutenção");
+                }
+            }
+        });
+
     }
 
 
@@ -139,4 +155,12 @@ public class VeiculoAdminController {
             }
         }
 
+    private Optional<String> solicitarMotivoManutencao() {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Motivo da Manutenção");
+        dialog.setHeaderText("Informe o motivo da manutenção");
+        dialog.setContentText("Motivo:");
+
+        return dialog.showAndWait();
+    }
 }

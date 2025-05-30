@@ -88,8 +88,8 @@
         <Label style="-fx-font-weight: bold;" text="Histórico de Manutenções:" />
         <TableView fx:id="tableHistorico" prefHeight="150">
             <columns>
-                <TableColumn fx:id="colunaData" prefWidth="120" text="Data" />
-                <TableColumn fx:id="colunaDescricao" prefWidth="400" text="Descrição" />
+                <TableColumn fx:id="colunaData" prefWidth="400" text="Descrição" />
+                <TableColumn fx:id="colunaDescricao" prefWidth="120" text="Data" />
             </columns>
         </TableView>
 
