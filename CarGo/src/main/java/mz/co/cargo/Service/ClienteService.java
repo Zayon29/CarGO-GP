@@ -2,6 +2,8 @@ package mz.co.cargo.Service;
 
 import mz.co.cargo.Model.ClienteUser;
 import mz.co.cargo.Repository.ClienteRepository;
+import mz.co.cargo.Security.PasswordHash;
+
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -9,7 +11,6 @@ public class ClienteService {
 
     public static String cadastrarCliente(ClienteUser cliente) {
 
-        // Validação dos critérios de aceitação
         if (cliente.getNome() == null || cliente.getNome().trim().isEmpty()) {
             return "Erro: O nome do cliente não pode ser vazio.";
         }
@@ -26,7 +27,6 @@ public class ClienteService {
             return "Erro: O email fornecido não é válido.";
         }
 
-        // Verificar se o email já está cadastrado no banco
         if (ClienteRepository.existeEmail(cliente.getEmail())) {
             return "Erro: O email já está cadastrado.";
         }
@@ -35,31 +35,39 @@ public class ClienteService {
             return "Erro: A senha deve ter pelo menos 6 caracteres.";
         }
 
-        // Cadastrar o cliente no banco
+        // Criptografar senha
+        String senhaHash = PasswordHash.gerarHash(cliente.getSenha());
+        cliente.setSenha(senhaHash);
+
         ClienteRepository.adicionarCliente(cliente);
         return "Cliente cadastrado com sucesso!";
     }
 
-    public static ClienteUser realizarLoginCliente(String email, String senha){
-        return ClienteRepository.loginCliente(email, senha);
+    public static ClienteUser realizarLoginCliente(String email, String senhaDigitada) {
+        ClienteUser cliente = ClienteRepository.buscarPorEmail(email);
+
+        if (cliente == null) return null;
+
+        boolean senhaCorreta = PasswordHash.validarSenha(senhaDigitada, cliente.getSenha());
+
+        return senhaCorreta ? cliente : null;
     }
 
-    public static List<ClienteUser> buscarTodosClientes(){
+    public static List<ClienteUser> buscarTodosClientes() {
         return ClienteRepository.buscarTodosClientes();
     }
 
-    public static List<ClienteUser> buscarClientesPorNome(String nome){
+    public static List<ClienteUser> buscarClientesPorNome(String nome) {
         return ClienteRepository.buscarClientesPorNome(nome);
     }
 
-    public static boolean excluirCliente(String email){
+    public static boolean excluirCliente(String email) {
         return ClienteRepository.excluirCliente(email);
     }
 
     private static String ultimaMensagemErro = "";
 
     public static boolean editarCliente(String emailAntigo, ClienteUser clienteAtualizado) {
-        // Validação dos critérios de aceitação
         if (clienteAtualizado.getNome() == null || clienteAtualizado.getNome().trim().isEmpty()) {
             ultimaMensagemErro = "O nome do cliente não pode ser vazio.";
             return false;
@@ -80,8 +88,8 @@ public class ClienteService {
             return false;
         }
 
-        // Se o email foi alterado, verificar duplicação
-        if (!emailAntigo.equals(clienteAtualizado.getEmail()) && ClienteRepository.existeEmail(clienteAtualizado.getEmail())) {
+        if (!emailAntigo.equals(clienteAtualizado.getEmail()) &&
+                ClienteRepository.existeEmail(clienteAtualizado.getEmail())) {
             ultimaMensagemErro = "O novo email já está cadastrado.";
             return false;
         }
@@ -91,7 +99,9 @@ public class ClienteService {
             return false;
         }
 
-        // Atualizar cliente
+        // Re-hash da nova senha (caso alterada)
+        clienteAtualizado.setSenha(PasswordHash.gerarHash(clienteAtualizado.getSenha()));
+
         boolean sucesso = ClienteRepository.editarCliente(emailAntigo, clienteAtualizado);
         if (!sucesso) {
             ultimaMensagemErro = "Erro ao atualizar os dados do cliente.";
@@ -103,5 +113,4 @@ public class ClienteService {
     public static String getUltimaMensagemErro() {
         return ultimaMensagemErro;
     }
-
 }

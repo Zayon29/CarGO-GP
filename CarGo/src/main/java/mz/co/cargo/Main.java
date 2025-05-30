@@ -5,7 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import mz.co.cargo.Model.AdminUser;
 import mz.co.cargo.Repository.DatabaseInitializer;
+import mz.co.cargo.Service.AdminService;
 import mz.co.cargo.Service.AluguelService;
 
 import java.io.IOException;

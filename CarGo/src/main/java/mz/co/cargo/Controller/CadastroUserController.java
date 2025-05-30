@@ -54,7 +54,7 @@ public class CadastroUserController {
         ClienteUser cliente = new ClienteUser(nome, email, senha);
         String resultado = ClienteService.cadastrarCliente(cliente);
 
-        if (resultado.equals("Usuário cadastrado com sucesso!")) {
+        if (resultado.equals("Cliente cadastrado com sucesso!")) {
             mostrarAlerta("Sucesso", resultado);
         } else {
             mostrarAlerta("Erro", resultado);

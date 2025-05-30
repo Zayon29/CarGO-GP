@@ -3,11 +3,8 @@ package mz.co.cargo.Service;
 import mz.co.cargo.Model.Aluguel;
 import mz.co.cargo.Model.Manutencao;
 import mz.co.cargo.Model.Veiculo;
-import mz.co.cargo.Repository.DatabaseInitializer;
-import mz.co.cargo.Repository.VeiculoRepository;
+import mz.co.cargo.Repository.*;
 import mz.co.cargo.Model.AdminUser;
-import mz.co.cargo.Repository.ManutencaoDatabase;
-import mz.co.cargo.Repository.ManutencaoRepository;
 
 import java.util.List;
 import java.util.Scanner;
@@ -98,6 +95,7 @@ public class MenuAdmin {
                 case 10 -> verCalendario();
                 case 11 -> verHistoricoDeCliente();
                 case 12 -> exibirTodosAlugueis();
+                case 13 -> AluguelRepository.limparTodosAlugueis();
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida.");
             }

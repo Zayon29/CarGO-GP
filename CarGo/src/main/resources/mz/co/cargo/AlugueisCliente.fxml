@@ -1,43 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefWidth="640.0" spacing="10" style="-fx-padding: 20" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mz.co.cargo.Controller.AlugueisClienteController">
+<VBox spacing="10" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="mz.co.cargo.Controller.AlugueisClienteController"
+      alignment="CENTER" style="-fx-padding: 20">
 
-    <Label style="-fx-font-size: 18px;" text="Meus Aluguéis" />
+    <Label text="Meus Aluguéis" style="-fx-font-size: 18px;" />
 
     <TableView fx:id="tabelaAlugueis" prefHeight="300" prefWidth="600">
         <columns>
-            <TableColumn fx:id="colVeiculo" prefWidth="200" text="Veículo" />
-            <TableColumn fx:id="colDataInicio" prefWidth="150" text="Início" />
-            <TableColumn fx:id="colDataFim" prefWidth="150" text="Fim" />
-            <TableColumn fx:id="colStatus" prefWidth="100" text="Status" />
+            <TableColumn fx:id="colVeiculo" text="Veículo" prefWidth="200"/>
+            <TableColumn fx:id="colDataInicio" text="Início" prefWidth="150"/>
+            <TableColumn fx:id="colDataFim" text="Fim" prefWidth="150"/>
+            <TableColumn fx:id="colStatus" text="Status" prefWidth="100"/>
         </columns>
     </TableView>
 
     <HBox spacing="10">
-        <Button onAction="#devolverVeiculo" text="Devolver Veículo">
-         <font>
-            <Font size="14.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-        <Button onAction="#voltar" text="Voltar">
-         <font>
-            <Font size="14.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
+        <Button text="Devolver Veículo" onAction="#devolverVeiculo" />
     </HBox>
 
-    <Label fx:id="mensagemLabel" style="-fx-text-fill: red" />
+    <Label fx:id="mensagemLabel" style="-fx-text-fill: red"/>
 </VBox>

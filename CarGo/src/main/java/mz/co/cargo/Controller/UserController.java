@@ -21,6 +21,8 @@ import mz.co.cargo.Model.Veiculo;
 import mz.co.cargo.Service.VeiculoService;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserController {
 
@@ -64,6 +66,7 @@ public class UserController {
 
     @FXML
     public void initialize() {
+        txtMarcaBusca.setOnAction(event -> buscarVeiculosPorMarca());
         colMarca.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMarca()));
         colModelo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getModelo()));
         colPrecoAluguel.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrecoAluguel()).asObject());
@@ -122,12 +125,6 @@ public class UserController {
     }
 
 
-
-    @FXML
-    private void buscarVeiculosPorMarca() {
-
-    }
-
     @FXML
     private void abrirTelaEditarCliente() {
         try {
@@ -162,6 +159,14 @@ public class UserController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void buscarVeiculosPorMarca() {
+        String termo = txtMarcaBusca.getText();
+        List<Veiculo> resultados = VeiculoService.buscarPorMarca(termo);
+        tabelaVeiculos.setItems(FXCollections.observableArrayList(resultados));
+        txtMarcaBusca.clear();
     }
 
 

@@ -117,6 +117,9 @@ public class VeiculoService {
                 return null;
         }
     }
+        public static List<Veiculo> buscarPorMarca(String marcaParcial) {
+            return VeiculoRepository.buscarVeiculosPorMarca(marcaParcial);
+        }
 
 }
 

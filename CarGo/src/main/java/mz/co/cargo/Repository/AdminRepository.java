@@ -97,4 +97,33 @@ public class AdminRepository {
         return admin;  // Retorna o Admin se encontrado, ou null se não encontrado
     }
 
+    public static AdminUser buscarPorEmail(String email) {
+        String sql = "SELECT * FROM admin WHERE email = ?";
+
+        try (Connection conn = AdminDatabase.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return new AdminUser(
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("senha") // hash completo
+                );
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao buscar admin por e-mail: " + e.getMessage());
+        }
+
+        return null;
+    }
+
+
+
+
+
+
 }
