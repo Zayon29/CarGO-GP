@@ -104,6 +104,7 @@ public class VeiculosClienteController {
         );
 
         Alert sucessoAlert = new Alert(Alert.AlertType.INFORMATION);
+        AluguelService.atualizarStatusDosVeiculos();
         sucessoAlert.setHeaderText(resultado);
         sucessoAlert.showAndWait();
 
